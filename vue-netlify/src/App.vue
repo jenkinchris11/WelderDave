@@ -9,7 +9,9 @@ import ContactCard from './components/ContactCard.vue';
 <template>
   <div class="page">
     <header>
-      <h1>WelderDave</h1>
+      <h1>
+        <span class="brand-highlight">Welder</span>Dave
+      </h1>
       <nav>
         <a href="#services">Services</a>
         <a href="#contact">Contact</a>
@@ -96,6 +98,10 @@ h1 {
   font-size: 1.5rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+.brand-highlight {
+  color: #ff761a;
 }
 
 nav {

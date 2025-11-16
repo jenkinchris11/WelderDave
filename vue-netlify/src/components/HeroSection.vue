@@ -17,7 +17,7 @@
 <style scoped>
 .hero {
   text-align: center;
-  background: radial-gradient(circle at top, #c7d2fe, transparent 60%);
+  background: radial-gradient(circle at top, #FF761A, transparent 60%);
   padding: 3rem 1.5rem;
   border-radius: 2rem;
   box-shadow: 0 20px 45px -20px rgba(15, 23, 42, 0.2);

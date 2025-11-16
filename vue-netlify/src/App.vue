@@ -50,6 +50,7 @@ import ContactCard from './components/ContactCard.vue';
 <style scoped>
 .page {
   max-width: 1200px;
+  overflow-x: hidden;
   margin: 0 auto;
   padding: 2.5rem 1.5rem 3rem;
   position: relative;

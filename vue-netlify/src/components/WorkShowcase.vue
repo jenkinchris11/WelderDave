@@ -25,6 +25,7 @@ const gallery = [
 <template>
   <section class="work">
     <h3>Hand-finished welding you can trust</h3>
+    <br>
     <div class="work__grid">
       <figure v-for="item in gallery" :key="item.src">
         <img :src="item.src" :alt="item.alt" loading="lazy" />

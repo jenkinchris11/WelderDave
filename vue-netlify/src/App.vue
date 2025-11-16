@@ -16,6 +16,44 @@ import sideVideo from './assets/Animation.mp4';
       <video :src="sideVideo" autoplay loop muted playsinline></video>
     </div>
 
+    <div class="page__content">
+      <header>
+        <h1 class="site-title">
+          <span class="brand-highlight site-title__segment">
+            <span class="site-title__initial">W</span>elder
+          </span>
+          <span class="site-title__segment">
+            <span class="site-title__initial">D</span>ave
+          </span>
+        </h1>
+      </header>
+
+      <main class="layout-grid">
+        <section class="layout-grid__item layout-grid__item--hero">
+          <HeroSection />
+        </section>
+
+        <section id="services" class="layout-grid__item layout-grid__item--features">
+          <FeatureGrid />
+        </section>
+
+        <section class="layout-grid__item layout-grid__item--reviews">
+          <GoogleReviews />
+        </section>
+
+        <section class="layout-grid__item layout-grid__item--gallery">
+          <ImageGallery />
+        </section>
+
+        <section id="contact" class="layout-grid__item layout-grid__item--contact">
+          <ContactCard />
+        </section>
+      </main>
+
+      <footer>
+        <small>Accrington mobile welder • Welding & fabrication expertise</small>
+      </footer>
+    </div>
     <header>
       <h1 class="site-title">
         <span class="brand-highlight site-title__segment">
@@ -57,12 +95,16 @@ import sideVideo from './assets/Animation.mp4';
 
 <style scoped>
 .page {
-  max-width: 1200px;
+  width: 100%;
   overflow-x: hidden;
-  margin: 0 auto;
-  padding: 2.5rem 1.5rem 3rem;
   position: relative;
   isolation: isolate;
+}
+
+.page__content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
 }
 
 .page::before,

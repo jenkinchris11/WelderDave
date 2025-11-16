@@ -125,6 +125,7 @@ main.layout-grid {
   margin-top: 3rem;
   display: grid;
   gap: 1.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .layout-grid__item {
@@ -135,12 +136,20 @@ main.layout-grid {
   main.layout-grid {
     gap: 2.5rem;
     grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-auto-flow: dense;
   }
-
   .layout-grid__item {
     grid-column: span 12;
   }
-
+  .layout-grid__item--hero {
+    grid-column: 2 / span 10;
+  }
+  .layout-grid__item--features {
+    grid-column: 1 / span 7;
+  }
+  .layout-grid__item--work {
+    grid-column: 8 / span 5;
+  }
   .layout-grid__item--features {
     grid-column: span 7;
   }
@@ -151,6 +160,7 @@ main.layout-grid {
   }
 
   .layout-grid__item--reviews {
+    grid-column: 1 / span 12;
     grid-column: 2 / span 10;
   }
 

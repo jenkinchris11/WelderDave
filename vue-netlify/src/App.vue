@@ -70,13 +70,11 @@ import ContactCard from './components/ContactCard.vue';
 }
 
 .page::before {
-  background: #c7d2fe;
   top: -140px;
   left: -120px;
 }
 
 .page::after {
-  background: #bfdbfe;
   right: -160px;
   bottom: 60px;
 }

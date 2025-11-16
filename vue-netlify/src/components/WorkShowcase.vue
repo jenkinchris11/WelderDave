@@ -8,34 +8,22 @@ import mobileRig from '../assets/b61506ee-2109-4e6e-862a-40031732f650.jpg';
 
 const gallery = [
   {
-    src: chassisPlate,
-    alt: 'Freshly welded chassis plate with neat beads',
-    caption: 'Chassis plate fully welded and dressed'
+    src: chassisPlate
   },
   {
-    src: alloyPanel,
-    alt: 'Aluminium panel repair clamped for TIG welding',
-    caption: 'Precision TIG work on alloy body panels'
+    src: alloyPanel
   },
   {
-    src: gateFabrication,
-    alt: 'Fabricated steel gate frame laid out for inspection',
-    caption: 'Fabrication for gates and garden projects'
+    src: gateFabrication
   },
   {
-    src: archRepair,
-    alt: 'Vehicle wheel arch repair with new metal section',
-    caption: 'Replacing corroded wheel arches on classics'
+    src: archRepair
   },
   {
-    src: bikeFrame,
-    alt: 'Motorcycle frame repair with reinforcement plates',
-    caption: 'Motorcycle frame bracing and repairs'
+    src: bikeFrame
   },
   {
-    src: mobileRig,
-    alt: 'Mobile welding setup ready for on-site work',
-    caption: 'Fully equipped mobile rig for call-outs'
+    src: mobileRig
   }
 ];
 </script>

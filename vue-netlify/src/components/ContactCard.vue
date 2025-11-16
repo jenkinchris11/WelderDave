@@ -3,7 +3,7 @@
     <div>
       <h3>Ready when you are</h3>
       <p>
-        What ever your metal need, call or message me with the job details and location. Emergency
+        Whatever your metal needs, call or message me with the job details and location. Emergency
         mobile service is available across Accrington and the surrounding area (call out charge
         applies), so repairs can be completed where your vehicle sits.
       </p>
@@ -21,12 +21,6 @@
       <label>
         Message
         <textarea placeholder="Share the vehicle, metal type, and repair needs..." rows="3"></textarea>
-        Email
-        <input type="email" placeholder="jane@example.com" required />
-      </label>
-      <label>
-        Message
-        <textarea placeholder="Tell us about your launch..." rows="3"></textarea>
       </label>
       <button type="submit">Send message</button>
     </form>

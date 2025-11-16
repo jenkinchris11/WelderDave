@@ -64,7 +64,7 @@ const features = [
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 700;
-  color: #1d4ed8;
+  color: #FF761A;
 }
 
 h3 {

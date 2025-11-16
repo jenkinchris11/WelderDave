@@ -4,10 +4,18 @@ import FeatureGrid from './components/FeatureGrid.vue';
 import GoogleReviews from './components/GoogleReviews.vue';
 import ImageGallery from './components/ImageGallery.vue';
 import ContactCard from './components/ContactCard.vue';
+import sideVideo from './assets/Animation.mp4';
 </script>
 
 <template>
   <div class="page">
+    <div class="page__side-video page__side-video--left" aria-hidden="true">
+      <video :src="sideVideo" autoplay loop muted playsinline></video>
+    </div>
+    <div class="page__side-video page__side-video--right" aria-hidden="true">
+      <video :src="sideVideo" autoplay loop muted playsinline></video>
+    </div>
+
     <header>
       <h1 class="site-title">
         <span class="brand-highlight site-title__segment">
@@ -77,6 +85,34 @@ import ContactCard from './components/ContactCard.vue';
 .page::after {
   right: -160px;
   bottom: 60px;
+}
+
+.page__side-video {
+  position: absolute;
+  display: none;
+  top: 120px;
+  width: 240px;
+  height: 320px;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 45px -25px rgba(15, 23, 42, 0.7);
+  overflow: hidden;
+  z-index: -1;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.page__side-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page__side-video--left {
+  left: -260px;
+}
+
+.page__side-video--right {
+  right: -260px;
 }
 
 header {
@@ -155,6 +191,14 @@ main.layout-grid {
 }
 
 @media (min-width: 1024px) {
+  .page__side-video {
+    display: block;
+  }
+
+  .page__side-video--right video {
+    transform: scaleX(-1);
+  }
+
   main.layout-grid {
     gap: 2.5rem;
     grid-template-columns: repeat(12, minmax(0, 1fr));

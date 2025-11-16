@@ -45,6 +45,7 @@
 
 h3 {
   font-size: 1.75rem;
+  color: #FF761A;
 }
 
 p {
@@ -75,7 +76,7 @@ textarea {
 button {
   align-self: flex-start;
   border-radius: 999px;
-  background-color: #38bdf8;
+  background-color: #FF761A;
   border: none;
   padding: 0.75rem 1.5rem;
   font-weight: 700;

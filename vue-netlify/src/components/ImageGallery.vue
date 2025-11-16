@@ -27,7 +27,6 @@ const galleryImages = Object.keys(imageModules)
       <div class="gallery__track">
         <figure v-for="(image, index) in galleryImages" :key="image.src" class="gallery__item">
           <img :src="image.src" :alt="image.alt" loading="lazy" />
-          <figcaption>Project {{ index + 1 }}</figcaption>
         </figure>
       </div>
     </div>

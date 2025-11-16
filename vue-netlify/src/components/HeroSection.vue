@@ -10,10 +10,6 @@
     <div class="hero__actions">
       <a class="primary" href="#contact">Call or message WelderDave</a>
       <a class="secondary" href="#services">Explore services</a>
-    <p class="lede">
-      This starter ships with opinionated styling, a responsive layout, and a Netlify-friendly
-      configuration so you can focus on your message instead of the boilerplate.
-    </p>
     </div>
   </section>
 </template>

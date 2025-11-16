@@ -37,7 +37,7 @@ const gallery = [
     </p>
 
     <div class="work__grid">
-      <figure v-for="item in gallery" :key="item.caption">
+      <figure v-for="item in gallery" :key="item.src">
         <img :src="item.src" :alt="item.alt" loading="lazy" />
       </figure>
     </div>

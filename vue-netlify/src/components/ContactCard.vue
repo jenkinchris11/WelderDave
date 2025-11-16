@@ -7,7 +7,6 @@
         mobile service is available across Accrington and the surrounding area (call out charge
         applies), so repairs can be completed where your vehicle sits.
       </p>
-      <h3>Need a hand?</h3>
     </div>
     <form class="contact__form" @submit.prevent>
       <label>

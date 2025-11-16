@@ -27,7 +27,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: #4338ca;
+  color: black;
 }
 
 h2 {
@@ -38,7 +38,7 @@ h2 {
 .lede {
   margin: 1rem auto 2rem;
   max-width: 46ch;
-  color: #475569;
+  color: black;
 }
 
 .hero__actions {
@@ -58,7 +58,7 @@ h2 {
 }
 
 .primary {
-  background-color: #1d4ed8;
+  background-color: #FF761A;
   color: white;
   box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.7);
 }

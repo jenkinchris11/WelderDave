@@ -17,7 +17,6 @@ import ContactCard from './components/ContactCard.vue';
     <main>
       <HeroSection />
       <FeatureGrid id="services" />
-      <FeatureGrid id="features" />
       <ContactCard id="contact" />
     </main>
 

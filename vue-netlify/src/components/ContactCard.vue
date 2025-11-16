@@ -81,6 +81,7 @@ button {
   padding: 0.75rem 1.5rem;
   font-weight: 700;
   cursor: pointer;
+  color: white;
 }
 
 button:hover {

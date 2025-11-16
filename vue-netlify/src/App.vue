@@ -9,7 +9,7 @@ import ContactCard from './components/ContactCard.vue';
 <template>
   <div class="page">
     <header>
-      <h1>WelderDave</h1>
+      <h1 style="font-color: #FF761A;">Welder</h1><h1>Dave</h1>
       <nav>
         <a href="#services">Services</a>
         <a href="#contact">Contact</a>

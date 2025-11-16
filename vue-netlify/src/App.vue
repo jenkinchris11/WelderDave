@@ -148,7 +148,7 @@ main.layout-grid {
   margin-top: 3rem;
   display: grid;
   gap: 1.75rem;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
 }
 
 .layout-grid__item {

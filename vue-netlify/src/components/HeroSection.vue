@@ -16,6 +16,7 @@
       This starter ships with opinionated styling, a responsive layout, and a Netlify-friendly
       configuration so you can focus on your message instead of the boilerplate.
     </p>
+    </div>
     <div class="hero__actions">
       <a class="primary" href="https://app.netlify.com/start" target="_blank" rel="noreferrer">
         Start Deploying

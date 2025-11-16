@@ -6,7 +6,7 @@ const embedLink = `${googleReviewLink}?embed=1`;
 <template>
   <section class="reviews">
     <div class="reviews__content">
-      <p class="eyebrow">Find Us On Google</p>
+      <p>Find Us On Google</p>
       <h3>Locals trust WelderDave for fast, tidy welding work</h3>
       <a :href="googleReviewLink" class="btn" target="_blank" rel="noreferrer">
         View on Google
@@ -68,7 +68,13 @@ h3 {
   text-decoration: none;
   transition: opacity 0.2s ease;
 }
-
+.p{
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #FF761A;
+}
 .btn:hover {
   opacity: 0.85;
 }

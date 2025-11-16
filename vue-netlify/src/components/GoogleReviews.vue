@@ -42,7 +42,7 @@ const embedLink = `${googleReviewLink}?embed=1`;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 600;
-  color: #FF761A;
+  color: white;
 }
 
 h3 {
@@ -60,8 +60,8 @@ h3 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #38bdf8;
-  color: #FF761A;
+  background: #FF761A;
+  color: white;
   font-weight: 700;
   padding: 0.65rem 1.5rem;
   border-radius: 999px;

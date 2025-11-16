@@ -1,6 +1,7 @@
 <script setup>
 import HeroSection from './components/HeroSection.vue';
 import FeatureGrid from './components/FeatureGrid.vue';
+import WorkShowcase from './components/WorkShowcase.vue';
 import ContactCard from './components/ContactCard.vue';
 </script>
 
@@ -17,6 +18,7 @@ import ContactCard from './components/ContactCard.vue';
     <main>
       <HeroSection />
       <FeatureGrid id="services" />
+      <WorkShowcase />
       <ContactCard id="contact" />
     </main>
 

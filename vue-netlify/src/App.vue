@@ -163,7 +163,7 @@ main.layout-grid {
   }
 
   .layout-grid__item--contact {
-    grid-column: 3 / span 8;
+    grid-column: 3 / span 10;
   }
 }
 

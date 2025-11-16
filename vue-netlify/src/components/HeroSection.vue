@@ -9,7 +9,6 @@
     </p>
     <div class="hero__actions">
       <a class="primary" href="#contact">Call or message WelderDave</a>
-      <a class="secondary" href="#services">Explore services</a>
     </div>
   </section>
 </template>

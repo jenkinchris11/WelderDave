@@ -28,10 +28,6 @@ import ContactCard from './components/ContactCard.vue';
         <FeatureGrid />
       </section>
 
-      <section class="layout-grid__item layout-grid__item--work">
-        <WorkShowcase />
-      </section>
-
       <section class="layout-grid__item layout-grid__item--reviews">
         <GoogleReviews />
       </section>

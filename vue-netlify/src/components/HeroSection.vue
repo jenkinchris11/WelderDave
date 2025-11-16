@@ -64,8 +64,8 @@ h2 {
 }
 
 .secondary {
-  color: #1d4ed8;
-  border: 2px solid rgba(37, 99, 235, 0.35);
+  color: #FF761A;
+  border: 2px solid white;
 }
 
 .primary:hover,

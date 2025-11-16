@@ -31,6 +31,8 @@ const features = [
   <section class="feature-grid">
     <div class="grid">
       <article v-for="feature in features" :key="feature.title">
+        <h4>{{ feature.title }}</h4>
+        <p>{{ feature.body }}</p>
       </article>
     </div>
   </section>
@@ -45,7 +47,7 @@ const features = [
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: (auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
 }
 

@@ -31,11 +31,6 @@ const gallery = [
 <template>
   <section class="work">
     <h3>Hand-finished welding you can trust</h3>
-    <p class="lede">
-      Every photo is taken from recent customer projects—from bodywork saves to structural fabrications—
-      so you can see the attention to detail before getting in touch.
-    </p>
-
     <div class="work__grid">
       <figure v-for="item in gallery" :key="item.src">
         <img :src="item.src" :alt="item.alt" loading="lazy" />

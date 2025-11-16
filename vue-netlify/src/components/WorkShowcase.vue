@@ -18,12 +18,6 @@ const gallery = [
   },
   {
     src: archRepair
-  },
-  {
-    src: bikeFrame
-  },
-  {
-    src: mobileRig
   }
 ];
 </script>

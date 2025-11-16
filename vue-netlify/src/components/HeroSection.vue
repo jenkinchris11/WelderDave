@@ -12,21 +12,6 @@
         <a class="primary" href="tel:07444259596">Call or message WelderDave</a>
       </div>
     </div>
-
-    <div class="hero__media" aria-hidden="true">
-      <a
-        href="https://www.animatedimages.org/cat-welders-1829.htm"
-        class="hero__image"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <img
-          src="https://www.animatedimages.org/data/media/1829/animated-welder-image-0028.gif"
-          alt="animated-welder-image-0028"
-          loading="lazy"
-        />
-      </a>
-    </div>
   </section>
 </template>
 
@@ -45,24 +30,6 @@
 
 .hero__content {
   max-width: 580px;
-}
-
-.hero__media {
-  display: flex;
-  justify-content: center;
-}
-
-.hero__image {
-  display: inline-flex;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 1.5rem;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
-}
-
-.hero__image img {
-  width: min(220px, 45vw);
-  height: auto;
 }
 
 .eyebrow {
@@ -129,15 +96,6 @@ h2 {
 
   .hero__actions {
     justify-content: flex-start;
-  }
-
-  .hero__media {
-    flex: 2;
-    justify-content: flex-end;
-  }
-
-  .hero__image {
-    padding: 1.5rem;
   }
 }
 </style>

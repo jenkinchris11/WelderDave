@@ -12,10 +12,6 @@ import ContactCard from './components/ContactCard.vue';
       <h1>
         <span class="brand-highlight">Welder</span>Dave
       </h1>
-      <nav>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
-      </nav>
     </header>
 
     <main class="layout-grid">

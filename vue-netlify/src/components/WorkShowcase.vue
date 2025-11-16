@@ -30,7 +30,6 @@ const gallery = [
 
 <template>
   <section class="work">
-    <p class="eyebrow">Proof of work</p>
     <h3>Hand-finished welding you can trust</h3>
     <p class="lede">
       Every photo is taken from recent customer projects—from bodywork saves to structural fabrications—

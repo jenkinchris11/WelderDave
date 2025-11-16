@@ -9,6 +9,8 @@ import ContactCard from './components/ContactCard.vue';
     <header>
       <h1>WelderDave</h1>
       <nav>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
         <a href="#features">Features</a>
         <a href="#contact">Contact</a>
         <a class="btn" href="https://www.netlify.com" target="_blank" rel="noreferrer">Deploy</a>
@@ -17,12 +19,13 @@ import ContactCard from './components/ContactCard.vue';
 
     <main>
       <HeroSection />
+      <FeatureGrid id="services" />
       <FeatureGrid id="features" />
       <ContactCard id="contact" />
     </main>
 
     <footer>
-      <small>Ready for Netlify • Built with Vue & Vite</small>
+      <small>Accrington mobile welder • Welding & fabrication expertise</small>
     </footer>
   </div>
 </template>

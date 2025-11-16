@@ -1,8 +1,28 @@
 <script setup>
 const features = [
   {
-    title: 'Instant builds',
-    body: 'Vite-powered bundling compiles lightning-fast previews so every change feels instant.'
+    title: 'Welding & fabrication',
+    body: 'From bespoke brackets to full structural work, every job is handled with clean, reliable welds.'
+  },
+  {
+    title: 'Repairs & MOT failures',
+    body: 'Sort troublesome advisories fast with patch panels, floor sections, and sill repairs ready for retest.'
+  },
+  {
+    title: 'Ferrous & non-ferrous metals',
+    body: 'Steel, stainless, and aluminium projects are all catered for with the right process for each metal.'
+  },
+  {
+    title: 'Cars, commercials & campers',
+    body: 'Chassis repairs for work vans, camper conversions, classics, and motorcycles keep every vehicle safe.'
+  },
+  {
+    title: 'Emergency mobile service',
+    body: 'Can’t make it to the workshop? A mobile call-out service is available when time is critical.'
+  },
+  {
+    title: 'Friendly local support',
+    body: 'Whatever your metal need, call or message WelderDave for practical advice and fast turnaround.'
   },
   {
     title: 'Zero config deploys',
@@ -21,6 +41,7 @@ const features = [
 
 <template>
   <section class="feature-grid">
+    <h3>Services at a glance</h3>
     <h3>Why this template?</h3>
     <div class="grid">
       <article v-for="feature in features" :key="feature.title">

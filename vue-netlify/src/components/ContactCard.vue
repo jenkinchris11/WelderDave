@@ -1,11 +1,12 @@
 <template>
   <section class="contact">
     <div>
-      <h3>Need a hand?</h3>
+      <h3>Ready when you are</h3>
       <p>
-        Drop a note and tell us what you're building. We'll share the project URL and instructions so
-        teammates can deploy from Netlify with one click.
-      </p>
+        What ever your metal need, call or message me with the job details and location. Emergency
+        mobile service is available across Accrington and the surrounding area (call out charge
+        applies), so repairs can be completed where your vehicle sits.
+      <h3>Need a hand?</h3>
     </div>
     <form class="contact__form" @submit.prevent>
       <label>
@@ -13,6 +14,12 @@
         <input type="text" placeholder="Jane Doe" required />
       </label>
       <label>
+        Email or phone
+        <input type="text" placeholder="jane@example.com / 07xxx xxxxxx" required />
+      </label>
+      <label>
+        Message
+        <textarea placeholder="Share the vehicle, metal type, and repair needs..." rows="3"></textarea>
         Email
         <input type="email" placeholder="jane@example.com" required />
       </label>

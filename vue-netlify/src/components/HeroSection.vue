@@ -1,5 +1,15 @@
 <template>
   <section class="hero">
+    <p class="eyebrow">Accrington based welder</p>
+    <h2>Precision welding & fabrication for every vehicle</h2>
+    <p class="lede">
+      Welding and fabrication services covering ferrous and non-ferrous metals, MOT failures, and
+      chassis repairs for cars, commercials, campers, classics, and motorcycles. Emergency mobile
+      service available (call out charge applies).
+    </p>
+    <div class="hero__actions">
+      <a class="primary" href="#contact">Call or message WelderDave</a>
+      <a class="secondary" href="#services">Explore services</a>
     <p class="eyebrow">Deploy in seconds</p>
     <h2>Launch a fast Vue.js site on Netlify</h2>
     <p class="lede">

@@ -138,26 +138,30 @@ main.layout-grid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     grid-auto-flow: dense;
   }
-
   .layout-grid__item {
     grid-column: span 12;
   }
-
   .layout-grid__item--hero {
     grid-column: 2 / span 10;
   }
-
   .layout-grid__item--features {
     grid-column: 1 / span 7;
   }
-
   .layout-grid__item--work {
     grid-column: 8 / span 5;
+  }
+  .layout-grid__item--features {
+    grid-column: span 7;
+  }
+
+  .layout-grid__item--work {
+    grid-column: span 5;
     align-self: stretch;
   }
 
   .layout-grid__item--reviews {
     grid-column: 1 / span 12;
+    grid-column: 2 / span 10;
   }
 
   .layout-grid__item--contact {

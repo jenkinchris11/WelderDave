@@ -29,8 +29,6 @@ const features = [
 
 <template>
   <section class="feature-grid">
-    <h3>Services at a glance</h3>
-    <h3>Why this template?</h3>
     <div class="grid">
       <article v-for="feature in features" :key="feature.title">
         <h4>{{ feature.title }}</h4>

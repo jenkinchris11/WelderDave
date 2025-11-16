@@ -57,6 +57,7 @@ const features = [
 
 .feature-grid__heading {
   position: relative;
+  text-align: center;
 }
 
 .eyebrow {
@@ -85,6 +86,12 @@ h3 {
 @media (min-width: 640px) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 720px) {
+  .feature-grid__heading {
+    text-align: left;
   }
 }
 

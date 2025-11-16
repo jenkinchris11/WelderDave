@@ -1,6 +1,6 @@
 <template>
   <section class="contact">
-    <div>
+    <div class="contact__intro">
       <h3>Ready when you are</h3>
       <p>
         Whatever your metal needs, call or message me with the job details and location. Emergency
@@ -36,10 +36,18 @@
   gap: 1.5rem;
 }
 
+.contact__intro {
+  text-align: center;
+}
+
 @media (min-width: 720px) {
   .contact {
     grid-template-columns: 1fr 1fr;
     align-items: center;
+  }
+
+  .contact__intro {
+    text-align: left;
   }
 }
 

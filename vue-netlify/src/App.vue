@@ -151,7 +151,7 @@ main.layout-grid {
     grid-column: 2 / span 10;
   }
   .layout-grid__item--features {
-    grid-column: 1 / span 7;
+    grid-column: 2 / span 10;
   }
   .layout-grid__item--reviews {
     grid-column: 1 / span 12;

@@ -30,10 +30,18 @@ const embedLink = `${googleReviewLink}?embed=1`;
   box-shadow: 0 35px 65px -45px rgba(15, 23, 42, 0.9);
 }
 
+.reviews__content {
+  text-align: center;
+}
+
 @media (min-width: 768px) {
   .reviews {
     grid-template-columns: 1fr 1fr;
     align-items: center;
+  }
+
+  .reviews__content {
+    text-align: left;
   }
 }
 

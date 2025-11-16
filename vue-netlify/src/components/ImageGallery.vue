@@ -46,6 +46,8 @@ const galleryImages = Object.keys(imageModules)
 
 .gallery__header {
   max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .gallery__header h3 {
@@ -101,6 +103,11 @@ const galleryImages = Object.keys(imageModules)
 @media (min-width: 768px) {
   .gallery__item {
     flex-basis: 45%;
+  }
+
+  .gallery__header {
+    text-align: left;
+    margin: 0;
   }
 }
 

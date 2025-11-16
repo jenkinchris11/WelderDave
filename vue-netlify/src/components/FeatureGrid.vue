@@ -29,7 +29,7 @@ const features = [
 
 <template>
   <section class="feature-grid">
-    <h4>Services</h4>
+    <h1>Services</h1>
     <div class="grid">
       <article v-for="feature in features" :key="feature.title">
         <h4>{{ feature.title }}</h4>

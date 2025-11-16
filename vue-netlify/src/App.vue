@@ -1,7 +1,6 @@
 <script setup>
 import HeroSection from './components/HeroSection.vue';
 import FeatureGrid from './components/FeatureGrid.vue';
-import WorkShowcase from './components/WorkShowcase.vue';
 import GoogleReviews from './components/GoogleReviews.vue';
 import ImageGallery from './components/ImageGallery.vue';
 import ContactCard from './components/ContactCard.vue';
@@ -152,20 +151,8 @@ main.layout-grid {
     grid-column: 2 / span 10;
   }
   .layout-grid__item--features {
-    grid-column: 1 / span 7;
+    grid-column: 2 / span 10;
   }
-  .layout-grid__item--work {
-    grid-column: 8 / span 5;
-  }
-  .layout-grid__item--features {
-    grid-column: span 7;
-  }
-
-  .layout-grid__item--work {
-    grid-column: span 5;
-    align-self: stretch;
-  }
-
   .layout-grid__item--reviews {
     grid-column: 1 / span 12;
     grid-column: 2 / span 10;

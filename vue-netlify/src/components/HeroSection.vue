@@ -8,7 +8,7 @@
       service available (call out charge applies).
     </p>
     <div class="hero__actions">
-      <a class="primary" href="#contact">Call or message WelderDave</a>
+      <a class="primary" href="tel:07444259596">Call or message WelderDave</a>
     </div>
   </section>
 </template>

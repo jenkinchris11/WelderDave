@@ -51,7 +51,6 @@ const features = [
 
 @media (min-width: 720px) {
   .feature-grid {
-    grid-template-columns: 1fr 2fr;
     align-items: center;
   }
 }

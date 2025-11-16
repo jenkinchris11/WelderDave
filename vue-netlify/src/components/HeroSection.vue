@@ -85,7 +85,7 @@ h2 {
 @media (min-width: 1024px) {
   .hero {
     flex-direction: row;
-    text-align: left;
+    text-align: center;
     padding: 4rem 5rem;
     gap: 3rem;
   }

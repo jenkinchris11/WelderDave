@@ -11,9 +11,6 @@ import ContactCard from './components/ContactCard.vue';
       <nav>
         <a href="#services">Services</a>
         <a href="#contact">Contact</a>
-        <a href="#features">Features</a>
-        <a href="#contact">Contact</a>
-        <a class="btn" href="https://www.netlify.com" target="_blank" rel="noreferrer">Deploy</a>
       </nav>
     </header>
 

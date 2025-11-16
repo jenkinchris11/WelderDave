@@ -23,18 +23,6 @@ const features = [
   {
     title: 'Friendly local support',
     body: 'Whatever your metal need, call or message WelderDave for practical advice and fast turnaround.'
-  },
-  {
-    title: 'Zero config deploys',
-    body: 'netlify.toml already includes the correct command and publish directory.'
-  },
-  {
-    title: 'Modern tooling',
-    body: 'Vue 3, single-file components, and hot-module replacement keep the DX delightful.'
-  },
-  {
-    title: 'Accessible defaults',
-    body: 'Semantic markup and responsive layouts ensure the experience works everywhere.'
   }
 ];
 </script>

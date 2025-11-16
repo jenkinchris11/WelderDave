@@ -3,6 +3,7 @@ import HeroSection from './components/HeroSection.vue';
 import FeatureGrid from './components/FeatureGrid.vue';
 import WorkShowcase from './components/WorkShowcase.vue';
 import GoogleReviews from './components/GoogleReviews.vue';
+import ImageGallery from './components/ImageGallery.vue';
 import ContactCard from './components/ContactCard.vue';
 </script>
 
@@ -33,6 +34,10 @@ import ContactCard from './components/ContactCard.vue';
 
       <section class="layout-grid__item layout-grid__item--reviews">
         <GoogleReviews />
+      </section>
+
+      <section class="layout-grid__item layout-grid__item--gallery">
+        <ImageGallery />
       </section>
 
       <section id="contact" class="layout-grid__item layout-grid__item--contact">
@@ -167,6 +172,10 @@ main.layout-grid {
 
   .layout-grid__item--reviews {
     grid-column: 1 / span 12;
+    grid-column: 2 / span 10;
+  }
+
+  .layout-grid__item--gallery {
     grid-column: 2 / span 10;
   }
 

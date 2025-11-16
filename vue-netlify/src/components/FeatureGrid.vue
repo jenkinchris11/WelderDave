@@ -29,7 +29,11 @@ const features = [
 
 <template>
   <section class="feature-grid">
-    <h3>Services</h3>
+    <div class="feature-grid__heading">
+      <p class="eyebrow">Core capabilities</p>
+      <h3>Services</h3>
+      <p class="lede">Full welding coverage for your chassis, bodywork, and custom fabrication ideas.</p>
+    </div>
     <div class="grid">
       <article v-for="feature in features" :key="feature.title">
         <h4>{{ feature.title }}</h4>
@@ -41,27 +45,50 @@ const features = [
 
 <style scoped>
 .feature-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 720px) {
+  .feature-grid {
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+  }
+}
+
+.feature-grid__heading {
+  position: relative;
+}
+
+.eyebrow {
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #1d4ed8;
+}
+
+h3 {
+  font-size: 1.75rem;
+  margin: 0.4rem 0;
+}
+
+.lede {
+  color: #475569;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: (auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
 }
 
 article {
   padding: 1.5rem;
-  border-radius: 1rem;
-  background-color: white;
+  border-radius: 1.25rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(226, 232, 240, 0.5));
   box-shadow: 0 15px 35px -25px rgba(15, 23, 42, 0.5);
-  border: 1px solid #e2e8f0;
-}
-
-h3 {
-  font-size: 1.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.4);
 }
 
 h4 {

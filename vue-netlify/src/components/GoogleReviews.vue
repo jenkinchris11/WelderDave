@@ -9,7 +9,7 @@ const embedLink = `${googleReviewLink}?embed=1`;
       <p class="eyebrow">Find Us On Google</p>
       <h3>Locals trust WelderDave for fast, tidy welding work</h3>
       <a :href="googleReviewLink" class="btn" target="_blank" rel="noreferrer">
-        Read more on Google
+        View on Google
       </a>
     </div>
 

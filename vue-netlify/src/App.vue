@@ -9,8 +9,13 @@ import ContactCard from './components/ContactCard.vue';
 <template>
   <div class="page">
     <header>
-      <h1>
-        <span class="brand-highlight">Welder</span>Dave
+      <h1 class="site-title">
+        <span class="brand-highlight site-title__segment">
+          <span class="site-title__initial">W</span>elder
+        </span>
+        <span class="site-title__segment">
+          <span class="site-title__initial">D</span>ave
+        </span>
       </h1>
     </header>
 
@@ -79,14 +84,14 @@ header {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 @media (min-width: 640px) {
   header {
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
   }
 }
 
@@ -94,6 +99,22 @@ h1 {
   font-size: 1.5rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+.site-title {
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: baseline;
+}
+
+.site-title__segment {
+  display: inline-flex;
+  gap: 0.05rem;
+}
+
+.site-title__initial {
+  font-size: 2.25rem;
+  line-height: 1;
 }
 
 .brand-highlight {

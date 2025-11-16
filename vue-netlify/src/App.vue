@@ -4,57 +4,71 @@ import FeatureGrid from './components/FeatureGrid.vue';
 import GoogleReviews from './components/GoogleReviews.vue';
 import ImageGallery from './components/ImageGallery.vue';
 import ContactCard from './components/ContactCard.vue';
+import sideVideo from './assets/Animation.mp4';
 </script>
 
 <template>
   <div class="page">
-    <header>
-      <h1 class="site-title">
-        <span class="brand-highlight site-title__segment">
-          <span class="site-title__initial">W</span>elder
-        </span>
-        <span class="site-title__segment">
-          <span class="site-title__initial">D</span>ave
-        </span>
-      </h1>
-    </header>
+    <div class="page__side-video page__side-video--left" aria-hidden="true">
+      <video :src="sideVideo" autoplay loop muted playsinline></video>
+    </div>
+    <div class="page__side-video page__side-video--right" aria-hidden="true">
+      <video :src="sideVideo" autoplay loop muted playsinline></video>
+    </div>
 
-    <main class="layout-grid">
-      <section class="layout-grid__item layout-grid__item--hero">
-        <HeroSection />
-      </section>
+    <div class="page__content">
+      <header>
+        <h1 class="site-title">
+          <span class="brand-highlight site-title__segment">
+            <span class="site-title__initial">W</span>elder
+          </span>
+          <span class="site-title__segment">
+            <span class="site-title__initial">D</span>ave
+          </span>
+        </h1>
+      </header>
 
-      <section id="services" class="layout-grid__item layout-grid__item--features">
-        <FeatureGrid />
-      </section>
+      <main class="layout-grid">
+        <section class="layout-grid__item layout-grid__item--hero">
+          <HeroSection />
+        </section>
 
-      <section class="layout-grid__item layout-grid__item--reviews">
-        <GoogleReviews />
-      </section>
+        <section id="services" class="layout-grid__item layout-grid__item--features">
+          <FeatureGrid />
+        </section>
 
-      <section class="layout-grid__item layout-grid__item--gallery">
-        <ImageGallery />
-      </section>
+        <section class="layout-grid__item layout-grid__item--reviews">
+          <GoogleReviews />
+        </section>
 
-      <section id="contact" class="layout-grid__item layout-grid__item--contact">
-        <ContactCard />
-      </section>
-    </main>
+        <section class="layout-grid__item layout-grid__item--gallery">
+          <ImageGallery />
+        </section>
 
-    <footer>
-      <small>Accrington mobile welder • Welding & fabrication expertise</small>
-    </footer>
+        <section id="contact" class="layout-grid__item layout-grid__item--contact">
+          <ContactCard />
+        </section>
+      </main>
+
+      <footer>
+        <small>Accrington mobile welder • Welding & fabrication expertise</small>
+      </footer>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .page {
-  max-width: 1200px;
+  width: 100%;
   overflow-x: hidden;
-  margin: 0 auto;
-  padding: 2.5rem 1.5rem 3rem;
   position: relative;
   isolation: isolate;
+}
+
+.page__content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3rem;
 }
 
 .page::before,
@@ -77,6 +91,34 @@ import ContactCard from './components/ContactCard.vue';
 .page::after {
   right: -160px;
   bottom: 60px;
+}
+
+.page__side-video {
+  position: absolute;
+  display: none;
+  top: 120px;
+  width: 240px;
+  height: 320px;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 45px -25px rgba(15, 23, 42, 0.7);
+  overflow: hidden;
+  z-index: -1;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.page__side-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page__side-video--left {
+  left: -260px;
+}
+
+.page__side-video--right {
+  right: -260px;
 }
 
 header {
@@ -155,6 +197,14 @@ main.layout-grid {
 }
 
 @media (min-width: 1024px) {
+  .page__side-video {
+    display: block;
+  }
+
+  .page__side-video--right video {
+    transform: scaleX(-1);
+  }
+
   main.layout-grid {
     gap: 2.5rem;
     grid-template-columns: repeat(12, minmax(0, 1fr));

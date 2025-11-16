@@ -72,8 +72,14 @@ h3 {
 
 .work__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 1.25rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .work__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 figure {
@@ -82,12 +88,15 @@ figure {
   overflow: hidden;
   box-shadow: 0 20px 40px -30px rgba(15, 23, 42, 0.45);
   border: 1px solid rgba(15, 23, 42, 0.05);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: stretch;
 }
 
 img {
   display: block;
   width: 100%;
-  height: 180px;
+  height: 100%;
   object-fit: cover;
 }
 

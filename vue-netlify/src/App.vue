@@ -2,6 +2,7 @@
 import HeroSection from './components/HeroSection.vue';
 import FeatureGrid from './components/FeatureGrid.vue';
 import WorkShowcase from './components/WorkShowcase.vue';
+import GoogleReviews from './components/GoogleReviews.vue';
 import ContactCard from './components/ContactCard.vue';
 </script>
 
@@ -19,6 +20,7 @@ import ContactCard from './components/ContactCard.vue';
       <HeroSection />
       <FeatureGrid id="services" />
       <WorkShowcase />
+      <GoogleReviews />
       <ContactCard id="contact" />
     </main>
 

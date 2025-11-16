@@ -6,7 +6,7 @@ const embedLink = `${googleReviewLink}?embed=1`;
 <template>
   <section class="reviews">
     <div class="reviews__content">
-      <p>Find Us On Google</p>
+      <p style="color: #FF761A;">Find Us On Google</p>
       <h3>Locals trust WelderDave for fast, tidy welding work</h3>
       <a :href="googleReviewLink" class="btn" target="_blank" rel="noreferrer">
         View on Google

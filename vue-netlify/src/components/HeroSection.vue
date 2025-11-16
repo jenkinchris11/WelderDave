@@ -17,12 +17,6 @@
       configuration so you can focus on your message instead of the boilerplate.
     </p>
     </div>
-    <div class="hero__actions">
-      <a class="primary" href="https://app.netlify.com/start" target="_blank" rel="noreferrer">
-        Start Deploying
-      </a>
-      <a class="secondary" href="#features">See features</a>
-    </div>
   </section>
 </template>
 

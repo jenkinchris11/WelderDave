@@ -26,6 +26,7 @@
   flex-direction: column;
   gap: 2rem;
   align-items: center;
+  justify-content: center;
 }
 
 .hero__content {

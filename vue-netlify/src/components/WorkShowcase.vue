@@ -40,7 +40,6 @@ const gallery = [
     <div class="work__grid">
       <figure v-for="item in gallery" :key="item.caption">
         <img :src="item.src" :alt="item.alt" loading="lazy" />
-        <figcaption>{{ item.caption }}</figcaption>
       </figure>
     </div>
   </section>

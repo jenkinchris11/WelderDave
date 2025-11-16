@@ -16,12 +16,26 @@ import ContactCard from './components/ContactCard.vue';
       </nav>
     </header>
 
-    <main>
-      <HeroSection />
-      <FeatureGrid id="services" />
-      <WorkShowcase />
-      <GoogleReviews />
-      <ContactCard id="contact" />
+    <main class="layout-grid">
+      <section class="layout-grid__item layout-grid__item--hero">
+        <HeroSection />
+      </section>
+
+      <section id="services" class="layout-grid__item layout-grid__item--features">
+        <FeatureGrid />
+      </section>
+
+      <section class="layout-grid__item layout-grid__item--work">
+        <WorkShowcase />
+      </section>
+
+      <section class="layout-grid__item layout-grid__item--reviews">
+        <GoogleReviews />
+      </section>
+
+      <section id="contact" class="layout-grid__item layout-grid__item--contact">
+        <ContactCard />
+      </section>
     </main>
 
     <footer>
@@ -32,9 +46,35 @@ import ContactCard from './components/ContactCard.vue';
 
 <style scoped>
 .page {
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2.5rem 1.5rem 3rem;
+  position: relative;
+  isolation: isolate;
+}
+
+.page::before,
+.page::after {
+  content: '';
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.3;
+  z-index: -1;
+}
+
+.page::before {
+  background: #c7d2fe;
+  top: -140px;
+  left: -120px;
+}
+
+.page::after {
+  background: #bfdbfe;
+  right: -160px;
+  bottom: 60px;
 }
 
 header {
@@ -59,15 +99,20 @@ h1 {
 }
 
 nav {
-  display: flex;
+  display: inline-flex;
   gap: 0.75rem;
   flex-wrap: wrap;
   font-weight: 600;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  padding: 0.35rem 0.5rem;
+  box-shadow: 0 10px 30px -20px rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(6px);
 }
 
 nav a {
   text-decoration: none;
-  padding: 0.4rem 0.75rem;
+  padding: 0.4rem 0.9rem;
   border-radius: 999px;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
@@ -76,16 +121,42 @@ nav a:hover {
   background-color: #e2e8f0;
 }
 
-.btn {
-  background-color: #2563eb;
-  color: white;
+main.layout-grid {
+  margin-top: 3rem;
+  display: grid;
+  gap: 1.75rem;
 }
 
-main {
-  margin-top: 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
+.layout-grid__item {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  main.layout-grid {
+    gap: 2.5rem;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .layout-grid__item {
+    grid-column: span 12;
+  }
+
+  .layout-grid__item--features {
+    grid-column: span 7;
+  }
+
+  .layout-grid__item--work {
+    grid-column: span 5;
+    align-self: stretch;
+  }
+
+  .layout-grid__item--reviews {
+    grid-column: 2 / span 10;
+  }
+
+  .layout-grid__item--contact {
+    grid-column: 3 / span 8;
+  }
 }
 
 footer {

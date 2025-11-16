@@ -1,6 +1,8 @@
 # WelderDave Vue Netlify Starter
 
+
 This repository hosts the WelderDave marketing site built with Vue 3 + Vite and configured for zero-config Netlify deployment. The source lives inside the `vue-netlify` directory.
+This repository contains a small Vue 3 + Vite website that's already configured for a zero-config Netlify deployment. The source lives inside the `vue-netlify` directory.
 
 ## Getting started
 

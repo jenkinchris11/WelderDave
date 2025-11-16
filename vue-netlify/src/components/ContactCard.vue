@@ -6,7 +6,7 @@
         What ever your metal need, call or message me with the job details and location. Emergency
         mobile service is available across Accrington and the surrounding area (call out charge
         applies), so repairs can be completed where your vehicle sits.
-      </p>
+      <h3>Need a hand?</h3>
     </div>
     <form class="contact__form" @submit.prevent>
       <label>
@@ -20,6 +20,12 @@
       <label>
         Message
         <textarea placeholder="Share the vehicle, metal type, and repair needs..." rows="3"></textarea>
+        Email
+        <input type="email" placeholder="jane@example.com" required />
+      </label>
+      <label>
+        Message
+        <textarea placeholder="Tell us about your launch..." rows="3"></textarea>
       </label>
       <button type="submit">Send message</button>
     </form>

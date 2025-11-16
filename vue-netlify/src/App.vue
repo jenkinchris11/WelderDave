@@ -11,12 +11,16 @@ import ContactCard from './components/ContactCard.vue';
       <nav>
         <a href="#services">Services</a>
         <a href="#contact">Contact</a>
+        <a href="#features">Features</a>
+        <a href="#contact">Contact</a>
+        <a class="btn" href="https://www.netlify.com" target="_blank" rel="noreferrer">Deploy</a>
       </nav>
     </header>
 
     <main>
       <HeroSection />
       <FeatureGrid id="services" />
+      <FeatureGrid id="features" />
       <ContactCard id="contact" />
     </main>
 
@@ -70,6 +74,11 @@ nav a {
 
 nav a:hover {
   background-color: #e2e8f0;
+}
+
+.btn {
+  background-color: #2563eb;
+  color: white;
 }
 
 main {

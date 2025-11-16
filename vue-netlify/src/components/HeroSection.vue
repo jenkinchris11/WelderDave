@@ -10,6 +10,17 @@
     <div class="hero__actions">
       <a class="primary" href="#contact">Call or message WelderDave</a>
       <a class="secondary" href="#services">Explore services</a>
+    <p class="eyebrow">Deploy in seconds</p>
+    <h2>Launch a fast Vue.js site on Netlify</h2>
+    <p class="lede">
+      This starter ships with opinionated styling, a responsive layout, and a Netlify-friendly
+      configuration so you can focus on your message instead of the boilerplate.
+    </p>
+    <div class="hero__actions">
+      <a class="primary" href="https://app.netlify.com/start" target="_blank" rel="noreferrer">
+        Start Deploying
+      </a>
+      <a class="secondary" href="#features">See features</a>
     </div>
   </section>
 </template>

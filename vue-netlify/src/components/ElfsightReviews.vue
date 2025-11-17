@@ -38,6 +38,7 @@ onMounted(() => {
   padding: clamp(1.5rem, 3vw, 2.5rem);
   background: white;
   border-radius: 1.25rem;
+  box-shadow: 0 35px 65px -45px rgba(15, 23, 42, 0.4);
 }
 
 .elfsight-reviews__eyebrow {
@@ -48,5 +49,8 @@ onMounted(() => {
   font-size: 0.85rem;
   color: #ff761a;
   text-align: center;
+}
+:deep(a[href^="https://elfsight.com/google-reviews-widget"]) {
+  display: none !important;
 }
 </style>

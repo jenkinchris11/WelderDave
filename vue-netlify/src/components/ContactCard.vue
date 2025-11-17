@@ -30,7 +30,6 @@
 .contact {
   background-color: #0f172a;
   color: white;
-  border-radius: 1.5rem;
   padding: 2rem;
   display: grid;
   gap: 1.5rem;

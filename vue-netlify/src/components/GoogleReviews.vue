@@ -7,7 +7,7 @@ const embedLink = `${googleReviewLink}?embed=1`;
   <section class="reviews">
     <div class="reviews__content">
       <p style="color: #FF761A;">Find Us On Google</p>
-      <h3>Locals trust WelderDave for fast, tidy welding work</h3>
+      <h3>Locals trust WelderDave for fast, <br> tidy welding work</h3>
       <a :href="googleReviewLink" class="btn" target="_blank" rel="noreferrer">
         View on Google
       </a>
@@ -23,7 +23,6 @@ const embedLink = `${googleReviewLink}?embed=1`;
 .reviews {
   background: #0f172a;
   color: #f8fafc;
-  border-radius: 1.75rem;
   padding: 2.75rem 2rem;
   display: grid;
   gap: 2rem;
@@ -41,7 +40,7 @@ const embedLink = `${googleReviewLink}?embed=1`;
   }
 
   .reviews__content {
-    text-align: left;
+    text-align: center;
   }
 }
 

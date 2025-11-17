@@ -3,9 +3,9 @@
     <div class="contact__intro">
       <h3>Ready when you are</h3>
       <p>
-        Whatever your metal needs, call or message me with the job details and location. Emergency
+        Whatever your metal needs, call or message me with the job details and location. <br> Emergency
         mobile service is available across Accrington and the surrounding area (call out charge
-        applies), so repairs can be completed where your vehicle sits.
+        applies) <br> so repairs can be completed where your vehicle sits.
       </p>
     </div>
     <form class="contact__form" @submit.prevent>
@@ -47,7 +47,7 @@
   }
 
   .contact__intro {
-    text-align: left;
+    text-align: center;
   }
 }
 

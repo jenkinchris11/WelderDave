@@ -215,14 +215,11 @@ main.layout-grid {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(15, 23, 42, 0.7);
   border-radius: 1.25rem;
   padding: 1rem;
-  box-shadow: 0 25px 65px -45px rgba(15, 23, 42, 0.9);
 }
 
 .layout-grid__item--lottie dotlottie-player {
-  width: min(360px, 100%);
   height: auto;
 }
 

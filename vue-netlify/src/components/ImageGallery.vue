@@ -46,7 +46,6 @@ const galleryImages = Object.keys(imageModules)
 
 .gallery__header {
   max-width: 720px;
-  margin: 0 auto;
   text-align: center;
 }
 
@@ -107,8 +106,7 @@ const galleryImages = Object.keys(imageModules)
   }
 
   .gallery__header {
-    text-align: left;
-    margin: 0;
+
   }
 }
 

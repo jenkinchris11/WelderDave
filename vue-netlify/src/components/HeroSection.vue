@@ -141,7 +141,7 @@ h2 {
   }
 
   .hero__image--secondary {
-    max-width: 300px;
+    width: 500px;
   }
 }
 </style>

@@ -1,4 +1,6 @@
 <script setup>
+import { ref, watch } from 'vue';
+
 const imageModules = import.meta.glob('../assets/*.jpg', {
   eager: true,
   import: 'default',
@@ -10,6 +12,28 @@ const galleryImages = Object.keys(imageModules)
     src: imageModules[path],
     alt: `WelderDave fabrication photo ${index + 1}`,
   }));
+
+const selectedImage = ref(null);
+
+const handleKeydown = (event) => {
+  if (event.key === 'Escape') {
+    selectedImage.value = null;
+  }
+};
+
+watch(
+  selectedImage,
+  (image) => {
+    if (image) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeydown);
+    } else {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeydown);
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
@@ -26,8 +50,31 @@ const galleryImages = Object.keys(imageModules)
     <div class="gallery__viewport" aria-label="Swipeable gallery of WelderDave projects">
       <div class="gallery__track">
         <figure v-for="(image, index) in galleryImages" :key="image.src" class="gallery__item">
-          <img :src="image.src" :alt="image.alt" loading="lazy" />
+          <button
+            type="button"
+            class="gallery__button"
+            @click="selectedImage = image"
+            aria-label="View larger image"
+          >
+            <img :src="image.src" :alt="image.alt" loading="lazy" />
+          </button>
         </figure>
+      </div>
+    </div>
+
+    <div
+      v-if="selectedImage"
+      class="gallery-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Expanded gallery image"
+      @click.self="selectedImage = null"
+    >
+      <div class="gallery-modal__content">
+        <button class="gallery-modal__close" type="button" @click="selectedImage = null" aria-label="Close image">
+          ✕
+        </button>
+        <img :src="selectedImage.src" :alt="selectedImage.alt" />
       </div>
     </div>
   </section>
@@ -111,6 +158,20 @@ const galleryImages = Object.keys(imageModules)
   }
 }
 
+.gallery__button {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.gallery__button:focus-visible {
+  outline: 2px solid #ff761a;
+  outline-offset: 4px;
+}
+
 .gallery__item img {
   width: 100%;
   height: 100%;
@@ -128,5 +189,56 @@ const galleryImages = Object.keys(imageModules)
   color: white;
   font-size: 0.75rem;
   font-weight: 600;
+}
+
+.gallery-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  z-index: 1000;
+}
+
+.gallery-modal__content {
+  position: relative;
+  max-width: min(90vw, 960px);
+  max-height: 80vh;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+}
+
+.gallery-modal__content img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+.gallery-modal__close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  border: none;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-modal__close:focus-visible {
+  outline: 2px solid #ff761a;
+  outline-offset: 2px;
 }
 </style>

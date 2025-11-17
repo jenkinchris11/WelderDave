@@ -96,7 +96,6 @@ h2 {
   }
 
   .hero__actions {
-    justify-content: flex-start;
   }
 }
 </style>

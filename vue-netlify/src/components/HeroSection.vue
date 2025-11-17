@@ -55,7 +55,7 @@ import welderBeamImage from '../assets/WelderBeam.png'
 }
 
 .hero__image--secondary {
-  max-width: 260px;
+  width: 500px;
 }
 
 .hero__content {

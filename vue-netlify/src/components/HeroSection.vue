@@ -48,7 +48,6 @@ import welderBeamImage from '../assets/WelderBeam.png'
 }
 
 .hero__image {
-  max-width: 320px;
   width: 100%;
   display: block;
   filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.25));

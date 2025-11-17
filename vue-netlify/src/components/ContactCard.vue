@@ -60,7 +60,7 @@ h3 {
 }
 
 p {
-  color: rgba(255, 255, 255, 0.85);
+  color: black;
 }
 
 .contact__form {
@@ -85,6 +85,7 @@ textarea {
   border: none;
   padding: 0.85rem 1rem;
   font: inherit;
+  background-color: #FF761A
 }
 
 button {

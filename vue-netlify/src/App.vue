@@ -216,10 +216,13 @@ main.layout-grid {
   justify-content: center;
   align-items: center;
   border-radius: 1.25rem;
-  padding: 1rem;
+  padding: 1.5rem;
+  min-height: 360px;
 }
 
 .layout-grid__item--lottie dotlottie-player {
+  width: min(100%, 480px);
+  aspect-ratio: 1 / 1;
   height: auto;
 }
 

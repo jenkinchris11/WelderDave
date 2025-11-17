@@ -53,6 +53,10 @@ import welderBeamImage from '../assets/WelderBeam.png'
   filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.25));
 }
 
+.hero__image--primary {
+  display: none;
+}
+
 .hero__image--secondary {
   width: 500px;
 }
@@ -134,6 +138,12 @@ h2 {
 
   .hero__actions {
     justify-content: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero__image--primary {
+    display: block;
   }
 }
 

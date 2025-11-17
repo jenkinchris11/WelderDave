@@ -5,6 +5,7 @@ import GoogleReviews from './components/GoogleReviews.vue';
 import ImageGallery from './components/ImageGallery.vue';
 import ContactCard from './components/ContactCard.vue';
 import sideVideo from './assets/Animation.mp4';
+import workerLottie from './assets/Worker yellow and black.lottie';
 </script>
 
 <template>
@@ -35,6 +36,20 @@ import sideVideo from './assets/Animation.mp4';
 
         <section id="services" class="layout-grid__item layout-grid__item--features">
           <FeatureGrid />
+        </section>
+
+        <section
+          class="layout-grid__item layout-grid__item--lottie"
+          aria-label="Welder Dave animation"
+        >
+          <dotlottie-player
+            :src="workerLottie"
+            autoplay
+            loop
+            background="transparent"
+            speed="1"
+            aria-hidden="true"
+          ></dotlottie-player>
         </section>
 
         <section class="layout-grid__item layout-grid__item--reviews">
@@ -194,6 +209,21 @@ main.layout-grid {
 
 .layout-grid__item {
   width: 100%;
+}
+
+.layout-grid__item--lottie {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.7);
+  border-radius: 1.25rem;
+  padding: 1rem;
+  box-shadow: 0 25px 65px -45px rgba(15, 23, 42, 0.9);
+}
+
+.layout-grid__item--lottie dotlottie-player {
+  width: min(360px, 100%);
+  height: auto;
 }
 
 @media (min-width: 1024px) {

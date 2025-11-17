@@ -103,7 +103,7 @@ const galleryImages = Object.keys(imageModules)
 
 @media (min-width: 768px) {
   .gallery__item {
-    flex-basis: 45%;
+    flex-basis: 25%;
   }
 
   .gallery__header {

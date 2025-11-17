@@ -32,7 +32,6 @@ onMounted(() => {
 
 <style scoped>
 .elfsight-reviews {
-  width: min(1100px, 100%);
   margin: 0 auto;
   padding: clamp(1.5rem, 3vw, 2.5rem);
   background: white;

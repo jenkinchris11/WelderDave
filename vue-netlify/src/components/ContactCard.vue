@@ -28,8 +28,8 @@
 
 <style scoped>
 .contact {
-  background-color: #0f172a;
-  color: white;
+  background-color: white;
+  color: black;
   padding: 2rem;
   display: grid;
   gap: 1.5rem;

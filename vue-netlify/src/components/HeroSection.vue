@@ -1,5 +1,12 @@
+<script setup>
+import welderImage from '../assets/Welder.png'
+</script>
+
 <template>
   <section class="hero">
+    <div class="hero__image">
+      <img :src="welderImage" alt="Welder working with sparks flying" />
+    </div>
     <div class="hero__content">
       <p class="eyebrow">Accrington based welder</p>
       <h2>Precision welding & fabrication for every vehicle</h2>
@@ -28,6 +35,18 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+
+.hero__image {
+  max-width: 380px;
+  width: 100%;
+}
+
+.hero__image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.25));
 }
 
 .hero__content {
@@ -87,9 +106,13 @@ h2 {
 @media (min-width: 1024px) {
   .hero {
     flex-direction: row;
-    text-align: center;
+    text-align: left;
     padding: clamp(4rem, 8vw, 6rem) clamp(2.5rem, 10vw, 8rem);
     gap: 3rem;
+  }
+
+  .hero__image {
+    flex: 2;
   }
 
   .hero__content {

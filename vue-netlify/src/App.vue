@@ -44,6 +44,7 @@ import workerLottie from './assets/Worker yellow and black.lottie';
         >
           <dotlottie-player
             :src="workerLottie"
+            style="width: 500px; height: 500px;"
             autoplay
             loop
             background="transparent"

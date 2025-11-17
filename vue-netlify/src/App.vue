@@ -173,7 +173,7 @@ h1 {
 
 .site-title__initial {
   font-size: 2.25rem;
-  line-height: 1;
+  line-height: 0.8;
 }
 
 .brand-highlight {

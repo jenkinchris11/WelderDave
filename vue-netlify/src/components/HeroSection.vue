@@ -5,6 +5,9 @@ import welderBeamImage from '../assets/WelderBeam.png'
 
 <template>
   <section class="hero">
+    <div class="hero__visual hero__visual--left" aria-hidden="true">
+      <img class="hero__image hero__image--primary" :src="welderImage" alt="Welder Dave welding a vehicle" />
+    </div>
     <div class="hero__content">
       <p class="eyebrow">Accrington based welder</p>
       <h2>Precision welding & fabrication for every vehicle</h2>
@@ -17,8 +20,7 @@ import welderBeamImage from '../assets/WelderBeam.png'
         <a class="primary" href="tel:07444259596">Call or message WelderDave</a>
       </div>
     </div>
-    <div class="hero__visuals">
-      <img class="hero__image hero__image--primary" :src="welderImage" alt="Welder Dave welding a vehicle" />
+    <div class="hero__visual hero__visual--right" aria-hidden="true">
       <img class="hero__image hero__image--secondary" :src="welderBeamImage" alt="Welder Dave showcasing welding beam" />
     </div>
   </section>
@@ -39,11 +41,10 @@ import welderBeamImage from '../assets/WelderBeam.png'
   width: 100%;
 }
 
-.hero__visuals {
+.hero__visual {
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .hero__image {
@@ -113,22 +114,34 @@ h2 {
 
 @media (min-width: 1024px) {
   .hero {
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
     text-align: left;
     padding: clamp(4rem, 8vw, 6rem) clamp(2.5rem, 10vw, 8rem);
-    gap: 3rem;
+    gap: 2.5rem;
   }
 
   .hero__content {
-    flex: 3;
+    justify-self: center;
   }
 
-  .hero__visuals {
-    flex: 2;
+  .hero__visual {
+    width: auto;
   }
 
   .hero__actions {
     justify-content: center;
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero__image--primary {
+    max-width: 360px;
+  }
+
+  .hero__image--secondary {
+    max-width: 300px;
   }
 }
 </style>

@@ -204,18 +204,23 @@ watch(
 
 .gallery-modal__content {
   position: relative;
-  max-width: min(90vw, 960px);
-  max-height: 80vh;
+  max-width: min(90vw, 1100px);
+  max-height: calc(100vh - 3rem);
   border-radius: 1rem;
-  overflow: hidden;
   background: #000;
+  padding: clamp(0.75rem, 2vw, 1.25rem);
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gallery-modal__content img {
   display: block;
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: calc(100vh - 6rem);
+  width: auto;
+  height: auto;
   object-fit: contain;
   background: #000;
 }

@@ -115,15 +115,17 @@ h2 {
 @media (min-width: 1024px) {
   .hero {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) minmax(auto, 560px) minmax(0, 1fr);
     align-items: center;
-    text-align: left;
+    justify-items: center;
+    text-align: center;
     padding: clamp(4rem, 8vw, 6rem) clamp(2.5rem, 10vw, 8rem);
     gap: 2.5rem;
   }
 
   .hero__content {
     justify-self: center;
+    text-align: center;
   }
 
   .hero__visual {

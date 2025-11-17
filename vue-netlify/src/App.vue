@@ -1,5 +1,6 @@
 <script setup>
 import HeroSection from './components/HeroSection.vue';
+import ElfsightReviews from './components/ElfsightReviews.vue';
 import FeatureGrid from './components/FeatureGrid.vue';
 import GoogleReviews from './components/GoogleReviews.vue';
 import ImageGallery from './components/ImageGallery.vue';
@@ -34,6 +35,10 @@ import carLottie from './assets/brokencar.lottie';
       <main class="layout-grid">
         <section class="layout-grid__item layout-grid__item--hero">
           <HeroSection />
+        </section>
+
+        <section class="layout-grid__item layout-grid__item--elfsight">
+          <ElfsightReviews />
         </section>
 
         <section id="services" class="layout-grid__item layout-grid__item--features">
@@ -229,6 +234,7 @@ main.layout-grid {
 }
 
 .layout-grid__item--hero,
+.layout-grid__item--elfsight,
 .layout-grid__item--reviews {
   grid-column: 1 / -1;
   width: 100vw;
@@ -265,13 +271,17 @@ main.layout-grid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     grid-auto-flow: dense;
   }
-  .layout-grid__item {
+  .layout-grid__item { 
     grid-column: span 12;
   }
   .layout-grid__item--hero,
+  .layout-grid__item--elfsight,
   .layout-grid__item--reviews {
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
+  }
+  .layout-grid__item--elfsight {
+    grid-column: 1 / -1;
   }
   .layout-grid__item--features {
     grid-column: 2 / span 7;

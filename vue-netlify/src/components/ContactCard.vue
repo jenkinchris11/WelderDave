@@ -49,6 +49,10 @@
   .contact__intro {
     text-align: center;
   }
+
+  .contact__form {
+    margin: 0;
+  }
 }
 
 h3 {
@@ -64,6 +68,8 @@ p {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: min(100%, 28rem);
+  margin: 0 auto;
 }
 
 label {
@@ -71,7 +77,7 @@ label {
   flex-direction: column;
   gap: 0.25rem;
   font-weight: 600;
-  width: 800px;
+  width: 100%;
 }
 
 input,

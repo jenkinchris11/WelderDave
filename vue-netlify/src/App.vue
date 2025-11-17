@@ -97,7 +97,9 @@ import workerLottie from './assets/Worker yellow and black.lottie';
   opacity: 0.3;
   z-index: -1;
 }
-
+.main{
+  width: 500px;
+}
 .page::before {
   top: -140px;
   left: -120px;

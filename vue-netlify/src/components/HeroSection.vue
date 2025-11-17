@@ -1,12 +1,10 @@
 <script setup>
 import welderImage from '../assets/Welder.png'
+import welderBeamImage from '../assets/WelderBeam.png'
 </script>
 
 <template>
   <section class="hero">
-    <div class="hero__image">
-      <img :src="welderImage" alt="Welder working with sparks flying" />
-    </div>
     <div class="hero__content">
       <p class="eyebrow">Accrington based welder</p>
       <h2>Precision welding & fabrication for every vehicle</h2>
@@ -18,6 +16,10 @@ import welderImage from '../assets/Welder.png'
       <div class="hero__actions">
         <a class="primary" href="tel:07444259596">Call or message WelderDave</a>
       </div>
+    </div>
+    <div class="hero__visuals">
+      <img class="hero__image hero__image--primary" :src="welderImage" alt="Welder Dave welding a vehicle" />
+      <img class="hero__image hero__image--secondary" :src="welderBeamImage" alt="Welder Dave showcasing welding beam" />
     </div>
   </section>
 </template>
@@ -37,16 +39,22 @@ import welderImage from '../assets/Welder.png'
   width: 100%;
 }
 
-.hero__image {
-  max-width: 380px;
-  width: 100%;
+.hero__visuals {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
 }
 
-.hero__image img {
+.hero__image {
+  max-width: 320px;
   width: 100%;
-  height: auto;
   display: block;
   filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.25));
+}
+
+.hero__image--secondary {
+  max-width: 260px;
 }
 
 .hero__content {
@@ -111,12 +119,12 @@ h2 {
     gap: 3rem;
   }
 
-  .hero__image {
-    flex: 2;
-  }
-
   .hero__content {
     flex: 3;
+  }
+
+  .hero__visuals {
+    flex: 2;
   }
 
   .hero__actions {

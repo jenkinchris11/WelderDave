@@ -56,17 +56,6 @@ import carLottie from './assets/brokencar.lottie';
         </section>
         <section class="layout-grid__item layout-grid__item--reviews">
           <GoogleReviews />
-          <div class="reviews-video" aria-label="Mechanic welding video">
-            <dotlottie-player
-              :src="carLottie"
-              style="width: 500px; height: 500px;"
-              autoplay
-              loop
-              background="transparent"
-              speed="1"
-              aria-hidden="true"
-            ></dotlottie-player>          
-          </div>
         </section>
         
         <section class="layout-grid__item layout-grid__item--gallery">

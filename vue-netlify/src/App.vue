@@ -7,6 +7,7 @@ import ContactCard from './components/ContactCard.vue';
 import sideVideo from './assets/Animation.mp4';
 import mechanicVideo from './assets/Mechanic.mp4';
 import workerLottie from './assets/Worker yellow and black.lottie';
+import carLottie from './assets/brokencar.lottie';
 </script>
 
 <template>
@@ -57,7 +58,15 @@ import workerLottie from './assets/Worker yellow and black.lottie';
         <section class="layout-grid__item layout-grid__item--reviews">
           <GoogleReviews />
           <div class="reviews-video" aria-label="Mechanic welding video">
-            <video :src="mechanicVideo" autoplay loop muted playsinline></video>
+            <dotlottie-player
+            :src="carLottie"
+            style="width: 500px; height: 500px;"
+            autoplay
+            loop
+            background="transparent"
+            speed="1"
+            aria-hidden="true"
+          ></dotlottie-player>
           </div>
         </section>
 

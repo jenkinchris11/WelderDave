@@ -5,6 +5,7 @@ import GoogleReviews from './components/GoogleReviews.vue';
 import ImageGallery from './components/ImageGallery.vue';
 import ContactCard from './components/ContactCard.vue';
 import sideVideo from './assets/Animation.mp4';
+import mechanicVideo from './assets/Mechanic.mp4';
 import workerLottie from './assets/Worker yellow and black.lottie';
 </script>
 
@@ -55,6 +56,9 @@ import workerLottie from './assets/Worker yellow and black.lottie';
 
         <section class="layout-grid__item layout-grid__item--reviews">
           <GoogleReviews />
+          <div class="reviews-video" aria-label="Mechanic welding video">
+            <video :src="mechanicVideo" autoplay loop muted playsinline></video>
+          </div>
         </section>
 
         <section class="layout-grid__item layout-grid__item--gallery">
@@ -197,6 +201,20 @@ nav a {
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
   transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.reviews-video {
+  margin-top: 1.5rem;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 15px 35px -20px rgba(15, 23, 42, 0.6);
+}
+
+.reviews-video video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
 }
 
 nav a:hover {

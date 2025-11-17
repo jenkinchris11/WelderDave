@@ -42,6 +42,7 @@ const galleryImages = Object.keys(imageModules)
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  align-items: center;
 }
 
 .gallery__header {

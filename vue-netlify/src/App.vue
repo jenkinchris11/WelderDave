@@ -122,8 +122,6 @@ import workerLottie from './assets/Worker yellow and black.lottie';
   width: 240px;
   height: 320px;
   border-radius: 1.5rem;
-  box-shadow: 0 20px 45px -25px rgba(15, 23, 42, 0.7);
-  overflow: hidden;
   z-index: -1;
   opacity: 0.8;
   pointer-events: none;
@@ -204,10 +202,9 @@ nav a {
 }
 
 .reviews-video {
-  margin-top: 1.5rem;
+  margin-top: 3.5rem;
   border-radius: 1.25rem;
   overflow: hidden;
-  box-shadow: 0 15px 35px -20px rgba(15, 23, 42, 0.6);
 }
 
 .reviews-video video {

@@ -208,9 +208,8 @@ nav a {
 }
 
 .reviews-video video {
-  display: block;
+  display: flex;
   width: 100%;
-  aspect-ratio: 16 / 9;
   object-fit: cover;
 }
 

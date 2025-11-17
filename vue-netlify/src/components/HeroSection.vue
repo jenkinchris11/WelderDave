@@ -19,14 +19,15 @@
 .hero {
   text-align: center;
   background: radial-gradient(circle at top, #FF761A, transparent 60%);
-  padding: 3rem 1.5rem;
-  border-radius: 2rem;
+  padding: clamp(3rem, 7vw, 5rem) clamp(1.5rem, 6vw, 6rem);
+  border-radius: 0;
   box-shadow: 0 20px 45px -20px rgba(15, 23, 42, 0.2);
   display: flex;
   flex-direction: column;
   gap: 2rem;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .hero__content {
@@ -87,7 +88,7 @@ h2 {
   .hero {
     flex-direction: row;
     text-align: center;
-    padding: 4rem 5rem;
+    padding: clamp(4rem, 8vw, 6rem) clamp(2.5rem, 10vw, 8rem);
     gap: 3rem;
   }
 
@@ -96,6 +97,7 @@ h2 {
   }
 
   .hero__actions {
+    justify-content: center;
   }
 }
 </style>

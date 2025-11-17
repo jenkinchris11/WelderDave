@@ -239,6 +239,13 @@ main.layout-grid {
   width: 100%;
 }
 
+.layout-grid__item--hero {
+  grid-column: 1 / -1;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
 .layout-grid__item--lottie {
   display: flex;
   justify-content: center;
@@ -272,7 +279,8 @@ main.layout-grid {
     grid-column: span 12;
   }
   .layout-grid__item--hero {
-    grid-column: 2 / span 10;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
   }
   .layout-grid__item--features {
     grid-column: 2 / span 7;

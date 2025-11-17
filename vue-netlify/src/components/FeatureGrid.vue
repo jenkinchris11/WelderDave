@@ -30,8 +30,7 @@ const features = [
 <template>
   <section class="feature-grid">
     <div class="feature-grid__heading">
-      <p class="eyebrow">Core capabilities</p>
-      <h3>Services</h3>
+      <h3 class="eyebrow">Services</h3>
       <p class="lede">Full welding coverage for your chassis, bodywork, and custom fabrication ideas.</p>
     </div>
     <div class="grid">

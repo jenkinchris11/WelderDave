@@ -71,6 +71,7 @@ label {
   flex-direction: column;
   gap: 0.25rem;
   font-weight: 600;
+  width: 800px;
 }
 
 input,

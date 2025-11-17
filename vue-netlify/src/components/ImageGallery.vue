@@ -98,6 +98,7 @@ const galleryImages = Object.keys(imageModules)
   overflow: hidden;
   position: relative;
   background: #0f172a;
+  aspect-ratio: 4 / 3;
 }
 
 @media (min-width: 768px) {
@@ -113,15 +114,9 @@ const galleryImages = Object.keys(imageModules)
 
 .gallery__item img {
   width: 100%;
-  height: 320px;
+  height: 100%;
   object-fit: cover;
   display: block;
-}
-
-@media (min-width: 1024px) {
-  .gallery__item img {
-    height: 380px;
-  }
 }
 
 .gallery__item figcaption {

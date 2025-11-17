@@ -236,6 +236,7 @@ main.layout-grid {
 .layout-grid__item--hero,
 .layout-grid__item--elfsight,
 .layout-grid__item--reviews,
+.layout-grid__item--gallery,
 .layout-grid__item--contact {
   grid-column: 1 / -1;
   width: 100vw;
@@ -278,6 +279,7 @@ main.layout-grid {
   .layout-grid__item--hero,
   .layout-grid__item--elfsight,
   .layout-grid__item--reviews,
+  .layout-grid__item--gallery,
   .layout-grid__item--contact {
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
@@ -297,7 +299,7 @@ main.layout-grid {
   }
 
   .layout-grid__item--gallery {
-    grid-column: 2 / span 10;
+    grid-column: 1 / -1;
   }
 
   .layout-grid__item--contact {

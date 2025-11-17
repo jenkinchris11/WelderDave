@@ -50,6 +50,9 @@ onMounted(() => {
   color: #ff761a;
   text-align: center;
 }
+.a{
+  display: none;
+}
 :deep(a[href^="https://elfsight.com/google-reviews-widget"]) {
   display: none !important;
 }

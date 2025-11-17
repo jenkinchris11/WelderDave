@@ -247,7 +247,11 @@ main.layout-grid {
     grid-column: 2 / span 10;
   }
   .layout-grid__item--features {
-    grid-column: 2 / span 10;
+    grid-column: 2 / span 7;
+  }
+  .layout-grid__item--lottie {
+    grid-column: 9 / span 3;
+    align-self: stretch;
   }
   .layout-grid__item--reviews {
     grid-column: 1 / span 12;

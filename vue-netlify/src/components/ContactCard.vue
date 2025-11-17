@@ -28,8 +28,8 @@
 
 <style scoped>
 .contact {
-  background-color: white;
-  color: black;
+  background-color: black;
+  color: white;
   padding: 2rem;
   display: grid;
   gap: 1.5rem;
@@ -60,7 +60,7 @@ h3 {
 }
 
 p {
-  color: black;
+  color: white;
 }
 
 .contact__form {
@@ -85,7 +85,6 @@ textarea {
   border: none;
   padding: 0.85rem 1rem;
   font: inherit;
-  background-color: #FF761A
 }
 
 button {

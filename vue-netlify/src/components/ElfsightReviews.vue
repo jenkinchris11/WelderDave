@@ -26,7 +26,6 @@ onMounted(() => {
 
 <template>
   <section class="elfsight-reviews" aria-label="Customer reviews">
-    <p class="elfsight-reviews__eyebrow">What our customers say</p>
     <div class="elfsight-app-a33493ab-df09-4d86-93b5-c0f3a97e6656" data-elfsight-app-lazy></div>
   </section>
 </template>
@@ -38,7 +37,6 @@ onMounted(() => {
   padding: clamp(1.5rem, 3vw, 2.5rem);
   background: white;
   border-radius: 1.25rem;
-  box-shadow: 0 35px 65px -45px rgba(15, 23, 42, 0.4);
 }
 .elfsight-reviews a { display: none !important; }
 

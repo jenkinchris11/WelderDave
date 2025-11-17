@@ -228,7 +228,8 @@ main.layout-grid {
   width: 100%;
 }
 
-.layout-grid__item--hero {
+.layout-grid__item--hero,
+.layout-grid__item--reviews {
   grid-column: 1 / -1;
   width: 100vw;
   margin-left: calc(50% - 50vw);
@@ -267,7 +268,8 @@ main.layout-grid {
   .layout-grid__item {
     grid-column: span 12;
   }
-  .layout-grid__item--hero {
+  .layout-grid__item--hero,
+  .layout-grid__item--reviews {
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
   }
@@ -279,8 +281,7 @@ main.layout-grid {
     align-self: stretch;
   }
   .layout-grid__item--reviews {
-    grid-column: 1 / span 12;
-    grid-column: 2 / span 10;
+    grid-column: 1 / -1;
   }
 
   .layout-grid__item--gallery {

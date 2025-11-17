@@ -214,6 +214,8 @@ nav a {
   margin-top: 3.5rem;
   border-radius: 1.25rem;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 
 .reviews-video video {

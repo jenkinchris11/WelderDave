@@ -54,17 +54,10 @@ import carLottie from './assets/brokencar.lottie';
             aria-hidden="true"
           ></dotlottie-player>
         </section>
-
         <section class="layout-grid__item layout-grid__item--reviews">
-
-        </section>
-        <section
-          class="layout-grid__item layout-grid__item--lottie"
-          aria-label="Welder Dave animation"
-        >
           <GoogleReviews />
           <div class="reviews-video" aria-label="Mechanic welding video">
-              <dotlottie-player
+            <dotlottie-player
               :src="carLottie"
               style="width: 500px; height: 500px;"
               autoplay
@@ -72,7 +65,7 @@ import carLottie from './assets/brokencar.lottie';
               background="transparent"
               speed="1"
               aria-hidden="true"
-            ></dotlottie-player>
+            ></dotlottie-player>          
           </div>
         </section>
         

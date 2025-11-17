@@ -38,6 +38,7 @@ import carLottie from './assets/brokencar.lottie';
         </section>
 
         <section class="layout-grid__item layout-grid__item--elfsight">
+          <div style="background: white;display: block;position: relative;right: -1100px;width: 400px;height: 180px;top: 710px;z-index: 2;"></div>
           <ElfsightReviews />
         </section>
 

@@ -59,6 +59,7 @@ import welderBeamImage from '../assets/WelderBeam.png'
 
 .hero__content {
   max-width: 580px;
+  text-align: center;
 }
 
 .eyebrow {

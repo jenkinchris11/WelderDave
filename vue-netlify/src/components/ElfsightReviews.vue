@@ -40,7 +40,7 @@ onMounted(() => {
   border-radius: 1.25rem;
   box-shadow: 0 35px 65px -45px rgba(15, 23, 42, 0.4);
 }
-.elfsight-reviews a { display:none; }
+.elfsight-reviews a { display: none !important; }
 
 .elfsight-reviews__eyebrow {
   margin-bottom: 1rem;

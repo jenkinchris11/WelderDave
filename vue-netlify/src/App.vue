@@ -83,6 +83,7 @@ import workerLottie from './assets/Worker yellow and black.lottie';
   overflow-x: hidden;
   position: relative;
   isolation: isolate;
+  background: white;
 }
 
 .page__content {

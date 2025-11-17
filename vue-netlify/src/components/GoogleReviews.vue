@@ -21,8 +21,8 @@ const embedLink = `${googleReviewLink}?embed=1`;
 
 <style scoped>
 .reviews {
-  background: #0f172a;
-  color: #f8fafc;
+  background: black;
+  color: white;
   padding: 2.75rem 2rem;
   display: grid;
   gap: 2rem;

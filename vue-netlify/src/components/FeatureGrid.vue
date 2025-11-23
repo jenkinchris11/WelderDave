@@ -10,11 +10,11 @@ const features = [
   },
   {
     title: 'Ferrous & non-ferrous metals',
-    body: 'Steel, stainless, and aluminium projects are all catered for with the right process for each metal.'
+    body: 'Time served with over thirty years of experience in a range of industries, including aeronautical engineering, food-standard welding, structural steel, and sheet metal fabrication. Industrial, domestic, and auto welding.'
   },
   {
     title: 'Cars, commercials & campers',
-    body: 'Chassis repairs for work vans, camper conversions, classics, and motorcycles keep every vehicle safe.'
+    body: 'Auto chassis welding of 4x4s. Vehicle restoration completed to a high standard. Complex projects undertaken. I provide solid, dependable work at a price that makes sense.'
   },
   {
     title: 'Emergency mobile service',

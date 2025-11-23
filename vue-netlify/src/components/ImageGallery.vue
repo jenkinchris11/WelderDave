@@ -212,35 +212,9 @@ watch(
         <p class="gallery__owner-note">Changes are saved in this browser so you can curate the gallery.</p>
       </div>
 
-      <form class="gallery__owner-form" @submit.prevent="addImage">
-        <div class="gallery__owner-field">
-          <label for="new-image-src">Image URL</label>
-          <input
-            id="new-image-src"
-            v-model="newImage.src"
-            type="url"
-            placeholder="https://example.com/photo.jpg"
-            required
-          />
-        </div>
-        <div class="gallery__owner-field">
-          <label for="new-image-alt">Alt text</label>
-          <input
-            id="new-image-alt"
-            v-model="newImage.alt"
-            type="text"
-            placeholder="Describe the photo"
-          />
-        </div>
-        <div class="gallery__owner-actions">
-          <button type="submit">Add image</button>
-          <p v-if="formError" class="gallery__owner-error" role="alert">{{ formError }}</p>
-        </div>
-      </form>
-
       <div class="gallery__owner-upload">
         <div class="gallery__owner-field">
-          <label for="upload-image">Upload to GitHub</label>
+          <label for="upload-image">Upload Image</label>
           <input
             id="upload-image"
             type="file"
@@ -259,7 +233,7 @@ watch(
         </div>
         <div class="gallery__owner-actions">
           <button type="button" @click="uploadToGitHub" :disabled="isUploading">
-            {{ isUploading ? 'Uploading…' : 'Upload to repo and add' }}
+            {{ isUploading ? 'Uploading…' : 'Upload and add to Gallery' }}
           </button>
           <p v-if="uploadStatus" class="gallery__owner-success">{{ uploadStatus }}</p>
           <p v-if="uploadError" class="gallery__owner-error" role="alert">{{ uploadError }}</p>

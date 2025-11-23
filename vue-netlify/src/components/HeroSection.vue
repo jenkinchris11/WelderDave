@@ -13,8 +13,8 @@ import welderBeamImage from '../assets/WelderBeam.png'
       <h2>Precision welding & fabrication for every vehicle</h2>
       <p class="lede">
         Welding and fabrication services covering ferrous and non-ferrous metals, MOT failures, and
-        chassis repairs for cars, commercials, campers, classics, and motorcycles. Emergency mobile
-        service available (call out charge applies).
+        chassis repairs for cars, commercials, campers, classics, motorcycles, and machinery. 
+        MIG, TIG and MMA welding in Accrington. Custom fabrication. Welding of aluminium, brass, cast iron, copper, mild steel, stainless steel and titanium.
       </p>
       <div class="hero__actions">
         <a class="primary" href="tel:07444259596">Call or message WelderDave</a>

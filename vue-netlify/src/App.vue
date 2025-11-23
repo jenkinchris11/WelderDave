@@ -162,7 +162,7 @@ watch(isAuthenticated, (isAuthed) => {
       </main>
 
       <footer class="site-footer">
-        <small> Please note that in order to assess metal structurally, I need to see your vehicle/project, as photographs alone do not allow for a full assessment.</small>
+        <small>Visit us at Gillies St, Accrington. Auto welding. Custom metal fabricator. MOT welding Accrington, Lancashire. Weekend and evening appointments available.</small>
         <small>Accrington mobile welder • Welding & fabrication expertise</small>
 
         <div class="owner-login" aria-label="Owner access controls">

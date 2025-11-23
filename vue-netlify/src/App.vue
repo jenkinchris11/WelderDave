@@ -1,14 +1,96 @@
 <script setup>
+import { onMounted, ref, watch } from 'vue';
 import HeroSection from './components/HeroSection.vue';
 import ElfsightReviews from './components/ElfsightReviews.vue';
 import FeatureGrid from './components/FeatureGrid.vue';
 import GoogleReviews from './components/GoogleReviews.vue';
 import ImageGallery from './components/ImageGallery.vue';
 import ContactCard from './components/ContactCard.vue';
+import { defaultGalleryImages } from './data/galleryData.js';
 import sideVideo from './assets/Animation.mp4';
-import mechanicVideo from './assets/Mechanic.mp4';
 import workerLottie from './assets/Worker yellow and black.lottie';
-import carLottie from './assets/brokencar.lottie';
+
+const galleryImages = ref([...defaultGalleryImages]);
+const isAuthenticated = ref(false);
+const showLoginForm = ref(false);
+const passwordInput = ref('');
+const authError = ref('');
+
+const OWNER_PASSWORD = import.meta.env.VITE_OWNER_PASSWORD || 'welderdave';
+const AUTH_STORAGE_KEY = 'welderdave-owner-auth';
+const GALLERY_STORAGE_KEY = 'welderdave-gallery-images';
+
+const normalizeImages = (images) => {
+  if (!Array.isArray(images)) {
+    return [...defaultGalleryImages];
+  }
+
+  return images
+    .filter((image) => image?.src)
+    .map((image, index) => ({
+      id: image.id || `gallery-${index + 1}`,
+      src: image.src,
+      alt: image.alt?.trim() || `Gallery image ${index + 1}`,
+    }));
+};
+
+const handleLogin = () => {
+  if (passwordInput.value.trim() === OWNER_PASSWORD) {
+    isAuthenticated.value = true;
+    showLoginForm.value = false;
+    authError.value = '';
+    passwordInput.value = '';
+    return;
+  }
+
+  authError.value = 'Incorrect password. Please try again.';
+};
+
+const toggleLoginForm = () => {
+  showLoginForm.value = !showLoginForm.value;
+  authError.value = '';
+};
+
+const logout = () => {
+  isAuthenticated.value = false;
+};
+
+const updateGalleryImages = (images) => {
+  galleryImages.value = normalizeImages(images);
+};
+
+onMounted(() => {
+  if (typeof window === 'undefined') return;
+
+  const savedGallery = localStorage.getItem(GALLERY_STORAGE_KEY);
+  if (savedGallery) {
+    try {
+      galleryImages.value = normalizeImages(JSON.parse(savedGallery));
+    } catch (error) {
+      console.error('Unable to load saved gallery images', error);
+      galleryImages.value = [...defaultGalleryImages];
+    }
+  }
+
+  const savedAuthState = localStorage.getItem(AUTH_STORAGE_KEY);
+  if (savedAuthState === 'true') {
+    isAuthenticated.value = true;
+  }
+});
+
+watch(
+  galleryImages,
+  (images) => {
+    if (typeof window === 'undefined') return;
+    localStorage.setItem(GALLERY_STORAGE_KEY, JSON.stringify(images));
+  },
+  { deep: true }
+);
+
+watch(isAuthenticated, (isAuthed) => {
+  if (typeof window === 'undefined') return;
+  localStorage.setItem(AUTH_STORAGE_KEY, isAuthed ? 'true' : 'false');
+});
 </script>
 
 <template>
@@ -21,15 +103,18 @@ import carLottie from './assets/brokencar.lottie';
     </div>
 
     <div class="page__content">
-      <header>
-        <h1 class="site-title">
-          <span class="brand-highlight site-title__segment">
-            <span class="site-title__initial">W</span>elder
-          </span>
-          <span class="site-title__segment">
-            <span class="site-title__initial">D</span>ave
-          </span>
-        </h1>
+      <header class="site-header">
+        <div class="site-header__identity">
+          <h1 class="site-title">
+            <span class="brand-highlight site-title__segment">
+              <span class="site-title__initial">W</span>elder
+            </span>
+            <span class="site-title__segment">
+              <span class="site-title__initial">D</span>ave
+            </span>
+          </h1>
+          <p class="site-header__tagline">Owner login unlocks gallery editing</p>
+        </div>
       </header>
 
       <main class="layout-grid">
@@ -64,7 +149,11 @@ import carLottie from './assets/brokencar.lottie';
         </section>
         
         <section class="layout-grid__item layout-grid__item--gallery">
-          <ImageGallery />
+          <ImageGallery
+            :images="galleryImages"
+            :editable="isAuthenticated"
+            @update:images="updateGalleryImages"
+          />
         </section>
 
         <section id="contact" class="layout-grid__item layout-grid__item--contact">
@@ -75,6 +164,40 @@ import carLottie from './assets/brokencar.lottie';
       <footer>
         <small>Accrington mobile welder • Welding & fabrication expertise</small>
       </footer>
+    </div>
+    <div class="owner-login">
+      <div v-if="isAuthenticated" class="owner-login__status">
+        <div class="status-pill">
+          <span class="status-pill__dot" aria-hidden="true"></span>
+          <span class="status-pill__text">Owner mode active</span>
+        </div>
+        <p class="owner-login__hint">You can now add, edit, and remove gallery images.</p>
+        <button type="button" class="owner-login__button owner-login__button--ghost" @click="logout">
+          Log out
+        </button>
+      </div>
+
+      <div v-else class="owner-login__panel">
+        <button type="button" class="owner-login__button" @click="toggleLoginForm">
+          {{ showLoginForm ? 'Hide owner login' : 'Owner login' }}
+        </button>
+
+        <form v-if="showLoginForm" class="owner-login__form" @submit.prevent="handleLogin">
+          <label class="owner-login__label" for="owner-password">Owner password</label>
+          <input
+            id="owner-password"
+            v-model="passwordInput"
+            type="password"
+            class="owner-login__input"
+            placeholder="Enter password"
+            autocomplete="current-password"
+            required
+          />
+          <p class="owner-login__hint">Default password: welderdave. Override with VITE_OWNER_PASSWORD.</p>
+          <p v-if="authError" class="owner-login__error" role="alert">{{ authError }}</p>
+          <button type="submit" class="owner-login__button owner-login__button--primary">Sign in</button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -92,6 +215,163 @@ import carLottie from './assets/brokencar.lottie';
   max-width: 1200px;
   margin: 0 auto;
   padding: 2.5rem 1.5rem 3rem;
+}
+
+.site-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-direction: column;
+  text-align: center;
+}
+
+.site-header__identity {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.site-header__tagline {
+  margin: 0;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.owner-login {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+  width: min(360px, calc(100% - 3rem));
+  z-index: 10;
+}
+
+.owner-login__panel,
+.owner-login__status {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  border: 1px solid #1e293b;
+  box-shadow: 0 20px 30px -24px rgba(15, 23, 42, 0.5);
+  min-width: min(320px, 100%);
+}
+
+.owner-login__form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+.owner-login__label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.owner-login__input {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+.owner-login__input:focus {
+  outline: 2px solid #ff761a;
+  outline-offset: 2px;
+  border-color: #ff761a;
+}
+
+.owner-login__button {
+  align-self: flex-start;
+  background: #ff761a;
+  color: #0f172a;
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  box-shadow: 0 10px 25px -14px rgba(255, 118, 26, 0.8);
+}
+
+.owner-login__button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 26px -14px rgba(255, 118, 26, 0.8);
+}
+
+.owner-login__button--primary {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+.owner-login__button--ghost {
+  background: transparent;
+  color: #e2e8f0;
+  border: 1px solid #334155;
+  box-shadow: none;
+}
+
+.owner-login__button--ghost:hover {
+  background: #1e293b;
+}
+
+.owner-login__hint {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .owner-login {
+    right: 1rem;
+    left: 1rem;
+    width: auto;
+  }
+
+  .owner-login__panel,
+  .owner-login__status {
+    width: 100%;
+  }
+}
+
+.owner-login__error {
+  margin: 0;
+  color: #fca5a5;
+  font-weight: 700;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #0b5d36;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  color: #e8fff3;
+  font-weight: 700;
+  width: fit-content;
+}
+
+.status-pill__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.2);
+}
+
+.status-pill__text {
+  font-size: 0.9rem;
 }
 
 .page::before,

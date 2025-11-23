@@ -1,24 +1,180 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { reactive, ref, watch } from 'vue';
 
-const imageModules = import.meta.glob('../assets/*.jpg', {
-  eager: true,
-  import: 'default',
+const props = defineProps({
+  images: {
+    type: Array,
+    default: () => [],
+  },
+  editable: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const galleryImages = Object.keys(imageModules)
-  .sort()
-  .map((path, index) => ({
-    src: imageModules[path],
-    alt: `WelderDave fabrication photo ${index + 1}`,
-  }));
+const emit = defineEmits(['update:images']);
 
 const selectedImage = ref(null);
+const formError = ref('');
+const newImage = reactive({
+  src: '',
+  alt: '',
+});
+const uploadFile = ref(null);
+const uploadAlt = ref('');
+const uploadError = ref('');
+const uploadStatus = ref('');
+const isUploading = ref(false);
+
+const GITHUB_OWNER = import.meta.env.VITE_GITHUB_REPO_OWNER || '';
+const GITHUB_REPO = import.meta.env.VITE_GITHUB_REPO_NAME || '';
+const GITHUB_BRANCH = import.meta.env.VITE_GITHUB_BRANCH || 'main';
+const GITHUB_MEDIA_PATH = import.meta.env.VITE_GITHUB_MEDIA_PATH || 'gallery-uploads';
+const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 
 const handleKeydown = (event) => {
   if (event.key === 'Escape') {
     selectedImage.value = null;
   }
+};
+
+const addImage = () => {
+  if (!newImage.src.trim()) {
+    formError.value = 'Please provide an image URL to add it to the gallery.';
+    return;
+  }
+
+  const updatedImages = [
+    ...props.images,
+    {
+      id: `custom-${Date.now()}`,
+      src: newImage.src.trim(),
+      alt: newImage.alt.trim() || 'Gallery image',
+    },
+  ];
+
+  emit('update:images', updatedImages);
+  newImage.src = '';
+  newImage.alt = '';
+  formError.value = '';
+};
+
+const toBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+
+const buildRepoPath = (filename) => {
+  const sanitizedName = filename
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9.-]/g, '');
+
+  const timestamp = new Date()
+    .toISOString()
+    .replace(/[:.]/g, '-')
+    .replace('T', '_')
+    .replace('Z', '');
+
+  return `${GITHUB_MEDIA_PATH}/${timestamp}-${sanitizedName || 'upload'}`;
+};
+
+const uploadToGitHub = async () => {
+  uploadError.value = '';
+  uploadStatus.value = '';
+
+  if (!uploadFile.value) {
+    uploadError.value = 'Choose an image file to upload to the repository.';
+    return;
+  }
+
+  if (!GITHUB_OWNER || !GITHUB_REPO || !GITHUB_TOKEN) {
+    uploadError.value =
+      'GitHub upload is not configured. Please set VITE_GITHUB_REPO_OWNER, VITE_GITHUB_REPO_NAME, and VITE_GITHUB_TOKEN.';
+    return;
+  }
+
+  isUploading.value = true;
+
+  try {
+    const content = await toBase64(uploadFile.value);
+    const targetPath = buildRepoPath(uploadFile.value.name);
+
+    const response = await fetch(
+      `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${targetPath}`,
+      {
+        method: 'PUT',
+        headers: {
+          Authorization: `token ${GITHUB_TOKEN}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/vnd.github.v3+json',
+        },
+        body: JSON.stringify({
+          message: `Add gallery image ${uploadFile.value.name}`,
+          content,
+          branch: GITHUB_BRANCH,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      const errorPayload = await response.json().catch(() => ({}));
+      throw new Error(errorPayload?.message || 'Upload failed.');
+    }
+
+    const payload = await response.json();
+    const rawUrl = payload?.content?.download_url;
+
+    if (!rawUrl) {
+      throw new Error('Upload succeeded but no download URL was returned.');
+    }
+
+    const updatedImages = [
+      ...props.images,
+      {
+        id: `upload-${Date.now()}`,
+        src: rawUrl,
+        alt: uploadAlt.value.trim() || uploadFile.value.name,
+      },
+    ];
+
+    emit('update:images', updatedImages);
+    uploadStatus.value = 'Uploaded to GitHub and added to the gallery.';
+    uploadFile.value = null;
+    uploadAlt.value = '';
+  } catch (error) {
+    uploadError.value = error.message || 'Unable to upload image right now.';
+  } finally {
+    isUploading.value = false;
+  }
+};
+
+const handleUploadSelection = (event) => {
+  const [file] = event.target.files || [];
+  uploadFile.value = file || null;
+  uploadError.value = '';
+  uploadStatus.value = '';
+};
+
+const removeImage = (id) => {
+  const updatedImages = props.images.filter((image) => image.id !== id);
+  emit('update:images', updatedImages);
+};
+
+const updateImageField = (id, field, value) => {
+  const updatedImages = props.images.map((image) =>
+    image.id === id
+      ? {
+          ...image,
+          [field]: value,
+        }
+      : image
+  );
+
+  emit('update:images', updatedImages);
 };
 
 watch(
@@ -47,9 +203,99 @@ watch(
       </p>
     </header>
 
-    <div class="gallery__viewport" aria-label="Swipeable gallery of WelderDave projects">
+    <div v-if="editable" class="gallery__owner-tools" aria-label="Owner gallery controls">
+      <div class="gallery__owner-header">
+        <h4>Owner controls</h4>
+        <p class="gallery__owner-note">
+          Changes are saved in this browser. Uploads push directly to your GitHub repo and appear in the gallery instantly.
+        </p>
+      </div>
+
+      <form class="gallery__owner-form" @submit.prevent="addImage">
+        <div class="gallery__owner-field">
+          <label for="new-image-src">Image URL</label>
+          <input
+            id="new-image-src"
+            v-model="newImage.src"
+            type="url"
+            placeholder="https://example.com/photo.jpg"
+            required
+          />
+        </div>
+        <div class="gallery__owner-field">
+          <label for="new-image-alt">Alt text</label>
+          <input
+            id="new-image-alt"
+            v-model="newImage.alt"
+            type="text"
+            placeholder="Describe the photo"
+          />
+        </div>
+        <div class="gallery__owner-actions">
+          <button type="submit">Add image</button>
+          <p v-if="formError" class="gallery__owner-error" role="alert">{{ formError }}</p>
+        </div>
+      </form>
+
+      <div class="gallery__owner-upload">
+        <div class="gallery__owner-field">
+          <label for="upload-image">Upload to GitHub</label>
+          <input
+            id="upload-image"
+            type="file"
+            accept="image/*"
+            @change="handleUploadSelection"
+          />
+        </div>
+        <div class="gallery__owner-field">
+          <label for="upload-image-alt">Alt text</label>
+          <input
+            id="upload-image-alt"
+            v-model="uploadAlt"
+            type="text"
+            placeholder="Describe the photo"
+          />
+        </div>
+        <div class="gallery__owner-actions">
+          <button type="button" @click="uploadToGitHub" :disabled="isUploading">
+            {{ isUploading ? 'Uploading…' : 'Upload to repo and add' }}
+          </button>
+          <p v-if="uploadStatus" class="gallery__owner-success">{{ uploadStatus }}</p>
+          <p v-if="uploadError" class="gallery__owner-error" role="alert">{{ uploadError }}</p>
+        </div>
+      </div>
+
+      <div v-if="images.length" class="gallery__owner-list" aria-label="Current gallery images">
+        <div v-for="image in images" :key="image.id" class="gallery__owner-row">
+          <div class="gallery__owner-field">
+            <label :for="`image-src-${image.id}`">Image URL</label>
+            <input
+              :id="`image-src-${image.id}`"
+              :value="image.src"
+              type="url"
+              @input="updateImageField(image.id, 'src', $event.target.value)"
+            />
+          </div>
+          <div class="gallery__owner-field">
+            <label :for="`image-alt-${image.id}`">Alt text</label>
+            <input
+              :id="`image-alt-${image.id}`"
+              :value="image.alt"
+              type="text"
+              @input="updateImageField(image.id, 'alt', $event.target.value)"
+            />
+          </div>
+          <button type="button" class="gallery__owner-remove" @click="removeImage(image.id)">
+            Remove
+          </button>
+        </div>
+      </div>
+      <p v-else class="gallery__owner-note">No images yet. Add one to get started.</p>
+    </div>
+
+    <div v-if="images.length" class="gallery__viewport" aria-label="Swipeable gallery of WelderDave projects">
       <div class="gallery__track">
-        <figure v-for="(image, index) in galleryImages" :key="image.src" class="gallery__item">
+        <figure v-for="(image, index) in images" :key="image.id" class="gallery__item">
           <button
             type="button"
             class="gallery__button"
@@ -62,14 +308,9 @@ watch(
       </div>
     </div>
 
-    <div
-      v-if="selectedImage"
-      class="gallery-modal"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Expanded gallery image"
-      @click.self="selectedImage = null"
-    >
+    <p v-else class="gallery__empty">No gallery images yet. Log in as the owner to add photos.</p>
+
+    <div v-if="selectedImage" class="gallery-modal" role="dialog" aria-modal="true" aria-label="Expanded gallery image" @click.self="selectedImage = null">
       <div class="gallery-modal__content">
         <button class="gallery-modal__close" type="button" @click="selectedImage = null" aria-label="Close image">
           ✕
@@ -113,6 +354,148 @@ watch(
   text-transform: uppercase;
   font-weight: 600;
   color: #94a3b8;
+}
+
+.gallery__owner-tools {
+  width: 100%;
+  background: #0f172a;
+  color: #e2e8f0;
+  border-radius: 1rem;
+  padding: 1rem;
+  border: 1px solid #1e293b;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.gallery__owner-header h4 {
+  margin: 0;
+}
+
+.gallery__owner-note {
+  margin: 0;
+  color: #cbd5e1;
+}
+
+.gallery__owner-form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.gallery__owner-upload {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.gallery__owner-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.gallery__owner-field label {
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.gallery__owner-field input {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.55rem;
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+.gallery__owner-field input:focus {
+  outline: 2px solid #ff761a;
+  outline-offset: 2px;
+  border-color: #ff761a;
+}
+
+.gallery__owner-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.gallery__owner-form button,
+.gallery__owner-remove {
+  background: #ff761a;
+  color: #0f172a;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.65rem 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  box-shadow: 0 16px 25px -18px rgba(255, 118, 26, 0.9);
+}
+
+.gallery__owner-actions button:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.gallery__owner-remove {
+  justify-self: flex-start;
+  background: #991b1b;
+  color: #fee2e2;
+  box-shadow: none;
+}
+
+.gallery__owner-remove:hover {
+  background: #7f1d1d;
+}
+
+.gallery__owner-form button:hover,
+.gallery__owner-remove:hover {
+  transform: translateY(-1px);
+}
+
+.gallery__owner-error {
+  margin: 0;
+  color: #fca5a5;
+  font-weight: 700;
+}
+
+.gallery__owner-success {
+  margin: 0;
+  color: #34d399;
+  font-weight: 700;
+}
+
+.gallery__owner-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.gallery__owner-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+  background: #111827;
+  border: 1px solid #1f2937;
+  padding: 0.75rem;
+  border-radius: 0.85rem;
+  align-items: end;
+}
+
+.gallery__empty {
+  color: #475569;
+  margin: 0;
+  text-align: center;
 }
 
 .gallery__viewport {

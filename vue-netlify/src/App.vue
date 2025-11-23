@@ -177,7 +177,7 @@ watch(isAuthenticated, (isAuthed) => {
           </div>
 
           <div v-else class="owner-login__panel">
-            <button type="button" class="owner-login__link" @click="toggleLoginForm">
+            <button type="button" class="owner-login__button" @click="toggleLoginForm">
               {{ showLoginForm ? 'Hide owner login' : 'Owner login' }}
             </button>
 

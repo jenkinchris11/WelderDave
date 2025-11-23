@@ -249,7 +249,6 @@ watch(isAuthenticated, (isAuthed) => {
   justify-content: flex-start;
   gap: 0.75rem;
   flex: 1 1 340px;
-  width: min(100%, 480px);
 }
 
 .owner-login__panel,

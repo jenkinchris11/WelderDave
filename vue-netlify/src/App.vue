@@ -176,11 +176,8 @@ watch(isAuthenticated, (isAuthed) => {
             </button>
           </div>
 
-          <div
-            v-else
-            :class="['owner-login__panel', { 'owner-login__panel--expanded': showLoginForm }]"
-          >
-            <button type="button" class="owner-login__link" @click="toggleLoginForm">
+          <div v-else class="owner-login__panel">
+            <button type="button" class="owner-login__button" @click="toggleLoginForm">
               {{ showLoginForm ? 'Hide owner login' : 'Owner login' }}
             </button>
 
@@ -271,6 +268,7 @@ watch(isAuthenticated, (isAuthed) => {
   border-radius: 0.75rem;
   border: 1px solid #1e293b;
   box-shadow: 0 20px 30px -24px rgba(15, 23, 42, 0.5);
+  width: 100%;
 }
 
 .owner-login__form {
@@ -314,24 +312,19 @@ watch(isAuthenticated, (isAuthed) => {
 
 .owner-login__link {
   background: transparent;
-  color: #475569;
+  color: #0f172a;
   border: none;
   padding: 0;
-  font-weight: 600;
-  text-decoration: none;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
   cursor: pointer;
-  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  transition: color 0.15s ease;
 }
 
 .owner-login__link:hover {
-  color: #1f2937;
-  text-decoration: underline;
-}
-
-.owner-login__link:focus-visible {
-  outline: none;
-  color: #1f2937;
-  text-decoration: underline;
+  color: #7c2d12;
 }
 
 .owner-login__button:hover {

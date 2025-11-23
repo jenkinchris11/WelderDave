@@ -209,7 +209,6 @@ watch(
         <p class="gallery__owner-note">
           Changes are saved in this browser. Uploads push directly to your GitHub repo and appear in the gallery instantly.
         </p>
-       </div>
       </div>
 
       <form class="gallery__owner-form" @submit.prevent="addImage">
@@ -241,7 +240,8 @@ watch(
       <div class="gallery__owner-upload">
         <div class="gallery__owner-field">
           <label for="upload-image">Upload to GitHub</label>
-        <p class="gallery__owner-note">Changes are saved in this browser so you can curate the gallery.</p>
+          <p class="gallery__owner-note">Changes are saved in this browser so you can curate the gallery.</p>
+        </div>
       </div>
 
       <div class="gallery__owner-upload">
@@ -269,9 +269,7 @@ watch(
             class="gallery__owner-button"
             @click="uploadToGitHub"
             :disabled="isUploading"
-          ></button>
-            {{ isUploading ? 'Uploading…' : 'Upload to repo and add' }}
-          <button type="button" @click="uploadToGitHub" :disabled="isUploading">
+          >
             {{ isUploading ? 'Uploading…' : 'Upload and add to Gallery' }}
           </button>
           <p v-if="uploadStatus" class="gallery__owner-success">{{ uploadStatus }}</p>
@@ -324,7 +322,14 @@ watch(
 
     <p v-else class="gallery__empty">No gallery images yet. Log in as the owner to add photos.</p>
 
-    <div v-if="selectedImage" class="gallery-modal" role="dialog" aria-modal="true" aria-label="Expanded gallery image" @click.self="selectedImage = null">
+    <div
+      v-if="selectedImage"
+      class="gallery-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Expanded gallery image"
+      @click.self="selectedImage = null"
+    >
       <div class="gallery-modal__content">
         <button class="gallery-modal__close" type="button" @click="selectedImage = null" aria-label="Close image">
           ✕
@@ -470,6 +475,8 @@ watch(
 .gallery__owner-form button:focus-visible {
   outline: 2px solid #ffb76b;
   outline-offset: 2px;
+}
+
 .gallery__owner-form button,
 .gallery__owner-remove {
   background: #ff761a;

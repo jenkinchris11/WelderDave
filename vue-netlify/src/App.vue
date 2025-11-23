@@ -254,13 +254,18 @@ watch(isAuthenticated, (isAuthed) => {
 
 .owner-login__panel,
 .owner-login__status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: 100%;
+}
+
+.owner-login__panel--expanded,
+.owner-login__status {
   background: #0f172a;
   color: #e2e8f0;
   padding: 1rem;
   border-radius: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
   border: 1px solid #1e293b;
   box-shadow: 0 20px 30px -24px rgba(15, 23, 42, 0.5);
   width: 100%;

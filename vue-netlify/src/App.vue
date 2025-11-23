@@ -115,6 +115,39 @@ watch(isAuthenticated, (isAuthed) => {
           </h1>
           <p class="site-header__tagline">Owner login unlocks gallery editing</p>
         </div>
+        <div class="owner-login">
+          <div v-if="isAuthenticated" class="owner-login__status">
+            <div class="status-pill">
+              <span class="status-pill__dot" aria-hidden="true"></span>
+              <span class="status-pill__text">Owner mode active</span>
+            </div>
+            <p class="owner-login__hint">You can now add, edit, and remove gallery images.</p>
+            <button type="button" class="owner-login__button owner-login__button--ghost" @click="logout">
+              Log out
+            </button>
+          </div>
+
+          <div v-else class="owner-login__panel">
+            <button type="button" class="owner-login__button" @click="toggleLoginForm">
+              {{ showLoginForm ? 'Hide owner login' : 'Owner login' }}
+            </button>
+
+            <form v-if="showLoginForm" class="owner-login__form" @submit.prevent="handleLogin">
+              <label class="owner-login__label" for="owner-password">Owner password</label>
+              <input
+                id="owner-password"
+                v-model="passwordInput"
+                type="password"
+                class="owner-login__input"
+                placeholder="Enter password"
+                autocomplete="current-password"
+                required
+              />
+              <p v-if="authError" class="owner-login__error" role="alert">{{ authError }}</p>
+              <button type="submit" class="owner-login__button owner-login__button--primary">Sign in</button>
+            </form>
+          </div>
+        </div>
       </header>
 
       <main class="layout-grid">
@@ -193,7 +226,6 @@ watch(isAuthenticated, (isAuthed) => {
             autocomplete="current-password"
             required
           />
-          <p class="owner-login__hint">Default password: welderdave. Override with VITE_OWNER_PASSWORD.</p>
           <p v-if="authError" class="owner-login__error" role="alert">{{ authError }}</p>
           <button type="submit" class="owner-login__button owner-login__button--primary">Sign in</button>
         </form>
@@ -224,6 +256,10 @@ watch(isAuthenticated, (isAuthed) => {
   gap: 1rem;
   flex-direction: column;
   text-align: center;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .site-header__identity {
@@ -246,8 +282,13 @@ watch(isAuthenticated, (isAuthed) => {
   flex-direction: column;
   align-items: flex-end;
   gap: 0.75rem;
-  width: min(360px, calc(100% - 3rem));
   z-index: 10;
+  z-index: 10;
+  display: flex;
+  justify-content: flex-end;
+  flex: 1 1 340px;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .owner-login__panel,
@@ -262,6 +303,7 @@ watch(isAuthenticated, (isAuthed) => {
   border: 1px solid #1e293b;
   box-shadow: 0 20px 30px -24px rgba(15, 23, 42, 0.5);
   min-width: min(320px, 100%);
+  min-width: min(460px, 100%);
 }
 
 .owner-login__form {

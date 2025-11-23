@@ -240,6 +240,12 @@ watch(
       <div class="gallery__owner-upload">
         <div class="gallery__owner-field">
           <label for="upload-image">Upload to GitHub</label>
+        <p class="gallery__owner-note">Changes are saved in this browser so you can curate the gallery.</p>
+      </div>
+
+      <div class="gallery__owner-upload">
+        <div class="gallery__owner-field">
+          <label for="upload-image">Upload Image</label>
           <input
             id="upload-image"
             type="file"
@@ -264,6 +270,8 @@ watch(
             :disabled="isUploading"
           >
             {{ isUploading ? 'Uploading…' : 'Upload to repo and add' }}
+          <button type="button" @click="uploadToGitHub" :disabled="isUploading">
+            {{ isUploading ? 'Uploading…' : 'Upload and add to Gallery' }}
           </button>
           <p v-if="uploadStatus" class="gallery__owner-success">{{ uploadStatus }}</p>
           <p v-if="uploadError" class="gallery__owner-error" role="alert">{{ uploadError }}</p>
@@ -461,6 +469,17 @@ watch(
 .gallery__owner-form button:focus-visible {
   outline: 2px solid #ffb76b;
   outline-offset: 2px;
+.gallery__owner-form button,
+.gallery__owner-remove {
+  background: #ff761a;
+  color: #0f172a;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.65rem 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  box-shadow: 0 16px 25px -18px rgba(255, 118, 26, 0.9);
 }
 
 .gallery__owner-actions button:disabled {

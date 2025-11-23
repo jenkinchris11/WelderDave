@@ -297,7 +297,7 @@ watch(isAuthenticated, (isAuthed) => {
 }
 
 .owner-login__button {
-  align-self: flex-start;
+  align-self: center;
   background: #ff761a;
   color: #0f172a;
   border: none;

@@ -268,7 +268,7 @@ watch(
             class="gallery__owner-button"
             @click="uploadToGitHub"
             :disabled="isUploading"
-          >
+          ></button>
             {{ isUploading ? 'Uploading…' : 'Upload to repo and add' }}
           <button type="button" @click="uploadToGitHub" :disabled="isUploading">
             {{ isUploading ? 'Uploading…' : 'Upload and add to Gallery' }}

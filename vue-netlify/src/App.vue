@@ -249,7 +249,7 @@ watch(isAuthenticated, (isAuthed) => {
   align-items: flex-start;
   justify-content: flex-start;
   gap: 0.75rem;
-  flex: 1 1 340px;
+  flex: 1 1 20px
 }
 
 .owner-login__panel,

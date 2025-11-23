@@ -209,6 +209,37 @@ watch(
         <p class="gallery__owner-note">
           Changes are saved in this browser. Uploads push directly to your GitHub repo and appear in the gallery instantly.
         </p>
+      </div>
+
+      <form class="gallery__owner-form" @submit.prevent="addImage">
+        <div class="gallery__owner-field">
+          <label for="new-image-src">Image URL</label>
+          <input
+            id="new-image-src"
+            v-model="newImage.src"
+            type="url"
+            placeholder="https://example.com/photo.jpg"
+            required
+          />
+        </div>
+        <div class="gallery__owner-field">
+          <label for="new-image-alt">Alt text</label>
+          <input
+            id="new-image-alt"
+            v-model="newImage.alt"
+            type="text"
+            placeholder="Describe the photo"
+          />
+        </div>
+        <div class="gallery__owner-actions">
+          <button type="submit" class="gallery__owner-button">Add image</button>
+          <p v-if="formError" class="gallery__owner-error" role="alert">{{ formError }}</p>
+        </div>
+      </form>
+
+      <div class="gallery__owner-upload">
+        <div class="gallery__owner-field">
+          <label for="upload-image">Upload to GitHub</label>
         <p class="gallery__owner-note">Changes are saved in this browser so you can curate the gallery.</p>
       </div>
 
@@ -232,6 +263,13 @@ watch(
           />
         </div>
         <div class="gallery__owner-actions">
+          <button
+            type="button"
+            class="gallery__owner-button"
+            @click="uploadToGitHub"
+            :disabled="isUploading"
+          >
+            {{ isUploading ? 'Uploading…' : 'Upload to repo and add' }}
           <button type="button" @click="uploadToGitHub" :disabled="isUploading">
             {{ isUploading ? 'Uploading…' : 'Upload and add to Gallery' }}
           </button>
@@ -401,6 +439,36 @@ watch(
   flex-wrap: wrap;
 }
 
+.gallery__owner-button,
+.gallery__owner-form button,
+.gallery__owner-remove {
+  background: linear-gradient(135deg, #ff9f43, #ff6a00);
+  color: #0f172a;
+  border: 1px solid #ff8a3d;
+  border-radius: 0.85rem;
+  padding: 0.75rem 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  box-shadow: 0 12px 30px -14px rgba(255, 118, 26, 0.75), 0 4px 14px -8px rgba(0, 0, 0, 0.25);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  text-decoration: none;
+}
+
+.gallery__owner-button:hover,
+.gallery__owner-form button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  box-shadow: 0 16px 32px -14px rgba(255, 118, 26, 0.85), 0 6px 18px -10px rgba(0, 0, 0, 0.3);
+}
+
+.gallery__owner-button:focus-visible,
+.gallery__owner-form button:focus-visible {
+  outline: 2px solid #ffb76b;
+  outline-offset: 2px;
 .gallery__owner-form button,
 .gallery__owner-remove {
   background: #ff761a;

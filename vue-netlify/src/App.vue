@@ -283,6 +283,7 @@ watch(isAuthenticated, (isAuthed) => {
   align-items: flex-end;
   gap: 0.75rem;
   z-index: 10;
+  z-index: 10;
   display: flex;
   justify-content: flex-end;
   flex: 1 1 340px;

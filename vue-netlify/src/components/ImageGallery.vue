@@ -211,32 +211,6 @@ watch(
         </p>
       </div>
 
-      <form class="gallery__owner-form" @submit.prevent="addImage">
-        <div class="gallery__owner-field">
-          <label for="new-image-src">Image URL</label>
-          <input
-            id="new-image-src"
-            v-model="newImage.src"
-            type="url"
-            placeholder="https://example.com/photo.jpg"
-            required
-          />
-        </div>
-        <div class="gallery__owner-field">
-          <label for="new-image-alt">Alt text</label>
-          <input
-            id="new-image-alt"
-            v-model="newImage.alt"
-            type="text"
-            placeholder="Describe the photo"
-          />
-        </div>
-        <div class="gallery__owner-actions">
-          <button type="submit" class="gallery__owner-button">Add image</button>
-          <p v-if="formError" class="gallery__owner-error" role="alert">{{ formError }}</p>
-        </div>
-      </form>
-
       <div class="gallery__owner-upload">
         <div class="gallery__owner-field">
           <label for="upload-image">Upload to GitHub</label>

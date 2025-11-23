@@ -226,7 +226,6 @@ watch(isAuthenticated, (isAuthed) => {
             autocomplete="current-password"
             required
           />
-          <p class="owner-login__hint">Default password: welderdave. Override with VITE_OWNER_PASSWORD.</p>
           <p v-if="authError" class="owner-login__error" role="alert">{{ authError }}</p>
           <button type="submit" class="owner-login__button owner-login__button--primary">Sign in</button>
         </form>

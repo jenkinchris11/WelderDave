@@ -200,6 +200,40 @@ watch(isAuthenticated, (isAuthed) => {
         <small>Accrington mobile welder • Welding & fabrication expertise</small>
       </footer>
     </div>
+    <div class="owner-login">
+      <div v-if="isAuthenticated" class="owner-login__status">
+        <div class="status-pill">
+          <span class="status-pill__dot" aria-hidden="true"></span>
+          <span class="status-pill__text">Owner mode active</span>
+        </div>
+        <p class="owner-login__hint">You can now add, edit, and remove gallery images.</p>
+        <button type="button" class="owner-login__button owner-login__button--ghost" @click="logout">
+          Log out
+        </button>
+      </div>
+
+      <div v-else class="owner-login__panel">
+        <button type="button" class="owner-login__button" @click="toggleLoginForm">
+          {{ showLoginForm ? 'Hide owner login' : 'Owner login' }}
+        </button>
+
+        <form v-if="showLoginForm" class="owner-login__form" @submit.prevent="handleLogin">
+          <label class="owner-login__label" for="owner-password">Owner password</label>
+          <input
+            id="owner-password"
+            v-model="passwordInput"
+            type="password"
+            class="owner-login__input"
+            placeholder="Enter password"
+            autocomplete="current-password"
+            required
+          />
+          <p class="owner-login__hint">Default password: welderdave. Override with VITE_OWNER_PASSWORD.</p>
+          <p v-if="authError" class="owner-login__error" role="alert">{{ authError }}</p>
+          <button type="submit" class="owner-login__button owner-login__button--primary">Sign in</button>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -220,6 +254,11 @@ watch(isAuthenticated, (isAuthed) => {
 
 .site-header {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-direction: column;
+  text-align: center;
   justify-content: space-between;
   align-items: flex-start;
   gap: 1rem;
@@ -239,6 +278,15 @@ watch(isAuthenticated, (isAuthed) => {
 }
 
 .owner-login {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+  width: min(360px, calc(100% - 3rem));
+  z-index: 10;
   display: flex;
   justify-content: flex-end;
   flex: 1 1 340px;
@@ -257,6 +305,7 @@ watch(isAuthenticated, (isAuthed) => {
   gap: 0.65rem;
   border: 1px solid #1e293b;
   box-shadow: 0 20px 30px -24px rgba(15, 23, 42, 0.5);
+  min-width: min(320px, 100%);
   min-width: min(460px, 100%);
 }
 
@@ -325,6 +374,19 @@ watch(isAuthenticated, (isAuthed) => {
   margin: 0;
   color: #cbd5e1;
   font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .owner-login {
+    right: 1rem;
+    left: 1rem;
+    width: auto;
+  }
+
+  .owner-login__panel,
+  .owner-login__status {
+    width: 100%;
+  }
 }
 
 .owner-login__error {

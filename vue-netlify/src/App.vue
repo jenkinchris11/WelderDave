@@ -115,39 +115,6 @@ watch(isAuthenticated, (isAuthed) => {
           </h1>
           <p class="site-header__tagline">Owner login unlocks gallery editing</p>
         </div>
-        <div class="owner-login">
-          <div v-if="isAuthenticated" class="owner-login__status">
-            <div class="status-pill">
-              <span class="status-pill__dot" aria-hidden="true"></span>
-              <span class="status-pill__text">Owner mode active</span>
-            </div>
-            <p class="owner-login__hint">You can now add, edit, and remove gallery images.</p>
-            <button type="button" class="owner-login__button owner-login__button--ghost" @click="logout">
-              Log out
-            </button>
-          </div>
-
-          <div v-else class="owner-login__panel">
-            <button type="button" class="owner-login__button" @click="toggleLoginForm">
-              {{ showLoginForm ? 'Hide owner login' : 'Owner login' }}
-            </button>
-
-            <form v-if="showLoginForm" class="owner-login__form" @submit.prevent="handleLogin">
-              <label class="owner-login__label" for="owner-password">Owner password</label>
-              <input
-                id="owner-password"
-                v-model="passwordInput"
-                type="password"
-                class="owner-login__input"
-                placeholder="Enter password"
-                autocomplete="current-password"
-                required
-              />
-              <p v-if="authError" class="owner-login__error" role="alert">{{ authError }}</p>
-              <button type="submit" class="owner-login__button owner-login__button--primary">Sign in</button>
-            </form>
-          </div>
-        </div>
       </header>
 
       <main class="layout-grid">
@@ -194,42 +161,43 @@ watch(isAuthenticated, (isAuthed) => {
         </section>
       </main>
 
-      <footer>
+      <footer class="site-footer">
         <small>Accrington mobile welder • Welding & fabrication expertise</small>
-      </footer>
-    </div>
-    <div class="owner-login">
-      <div v-if="isAuthenticated" class="owner-login__status">
-        <div class="status-pill">
-          <span class="status-pill__dot" aria-hidden="true"></span>
-          <span class="status-pill__text">Owner mode active</span>
+
+        <div class="owner-login" aria-label="Owner access controls">
+          <div v-if="isAuthenticated" class="owner-login__status">
+            <div class="status-pill">
+              <span class="status-pill__dot" aria-hidden="true"></span>
+              <span class="status-pill__text">Owner mode active</span>
+            </div>
+            <p class="owner-login__hint">You can now add, edit, and remove gallery images.</p>
+            <button type="button" class="owner-login__button owner-login__button--ghost" @click="logout">
+              Log out
+            </button>
+          </div>
+
+          <div v-else class="owner-login__panel">
+            <button type="button" class="owner-login__button" @click="toggleLoginForm">
+              {{ showLoginForm ? 'Hide owner login' : 'Owner login' }}
+            </button>
+
+            <form v-if="showLoginForm" class="owner-login__form" @submit.prevent="handleLogin">
+              <label class="owner-login__label" for="owner-password">Owner password</label>
+              <input
+                id="owner-password"
+                v-model="passwordInput"
+                type="password"
+                class="owner-login__input"
+                placeholder="Enter password"
+                autocomplete="current-password"
+                required
+              />
+              <p v-if="authError" class="owner-login__error" role="alert">{{ authError }}</p>
+              <button type="submit" class="owner-login__button owner-login__button--primary">Sign in</button>
+            </form>
+          </div>
         </div>
-        <p class="owner-login__hint">You can now add, edit, and remove gallery images.</p>
-        <button type="button" class="owner-login__button owner-login__button--ghost" @click="logout">
-          Log out
-        </button>
-      </div>
-
-      <div v-else class="owner-login__panel">
-        <button type="button" class="owner-login__button" @click="toggleLoginForm">
-          {{ showLoginForm ? 'Hide owner login' : 'Owner login' }}
-        </button>
-
-        <form v-if="showLoginForm" class="owner-login__form" @submit.prevent="handleLogin">
-          <label class="owner-login__label" for="owner-password">Owner password</label>
-          <input
-            id="owner-password"
-            v-model="passwordInput"
-            type="password"
-            class="owner-login__input"
-            placeholder="Enter password"
-            autocomplete="current-password"
-            required
-          />
-          <p v-if="authError" class="owner-login__error" role="alert">{{ authError }}</p>
-          <button type="submit" class="owner-login__button owner-login__button--primary">Sign in</button>
-        </form>
-      </div>
+      </footer>
     </div>
   </div>
 </template>
@@ -275,20 +243,13 @@ watch(isAuthenticated, (isAuthed) => {
 }
 
 .owner-login {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
+  justify-content: flex-start;
   gap: 0.75rem;
-  z-index: 10;
-  z-index: 10;
-  display: flex;
-  justify-content: flex-end;
   flex: 1 1 340px;
-  gap: 0.75rem;
-  flex-wrap: wrap;
+  width: min(100%, 480px);
 }
 
 .owner-login__panel,
@@ -302,8 +263,7 @@ watch(isAuthenticated, (isAuthed) => {
   gap: 0.65rem;
   border: 1px solid #1e293b;
   box-shadow: 0 20px 30px -24px rgba(15, 23, 42, 0.5);
-  min-width: min(320px, 100%);
-  min-width: min(460px, 100%);
+  width: 100%;
 }
 
 .owner-login__form {
@@ -375,9 +335,7 @@ watch(isAuthenticated, (isAuthed) => {
 
 @media (max-width: 640px) {
   .owner-login {
-    right: 1rem;
-    left: 1rem;
-    width: auto;
+    width: 100%;
   }
 
   .owner-login__panel,
@@ -629,9 +587,24 @@ main.layout-grid {
   }
 }
 
-footer {
+.site-footer {
   margin-top: 3rem;
+  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   text-align: center;
   color: #475569;
+  border-top: 1px solid #e2e8f0;
+}
+
+@media (min-width: 640px) {
+  .site-footer {
+    align-items: center;
+  }
+
+  .owner-login {
+    align-self: center;
+  }
 }
 </style>

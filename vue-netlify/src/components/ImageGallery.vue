@@ -209,6 +209,7 @@ watch(
         <p class="gallery__owner-note">
           Changes are saved in this browser. Uploads push directly to your GitHub repo and appear in the gallery instantly.
         </p>
+        <p class="gallery__owner-note">Changes are saved in this browser so you can curate the gallery.</p>
       </div>
 
       <form class="gallery__owner-form" @submit.prevent="addImage">

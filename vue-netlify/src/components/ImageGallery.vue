@@ -20,6 +20,17 @@ const newImage = reactive({
   src: '',
   alt: '',
 });
+const uploadFile = ref(null);
+const uploadAlt = ref('');
+const uploadError = ref('');
+const uploadStatus = ref('');
+const isUploading = ref(false);
+
+const GITHUB_OWNER = import.meta.env.VITE_GITHUB_REPO_OWNER || '';
+const GITHUB_REPO = import.meta.env.VITE_GITHUB_REPO_NAME || '';
+const GITHUB_BRANCH = import.meta.env.VITE_GITHUB_BRANCH || 'main';
+const GITHUB_MEDIA_PATH = import.meta.env.VITE_GITHUB_MEDIA_PATH || 'gallery-uploads';
+const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
 
 const handleKeydown = (event) => {
   if (event.key === 'Escape') {
@@ -46,6 +57,106 @@ const addImage = () => {
   newImage.src = '';
   newImage.alt = '';
   formError.value = '';
+};
+
+const toBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+
+const buildRepoPath = (filename) => {
+  const sanitizedName = filename
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9.-]/g, '');
+
+  const timestamp = new Date()
+    .toISOString()
+    .replace(/[:.]/g, '-')
+    .replace('T', '_')
+    .replace('Z', '');
+
+  return `${GITHUB_MEDIA_PATH}/${timestamp}-${sanitizedName || 'upload'}`;
+};
+
+const uploadToGitHub = async () => {
+  uploadError.value = '';
+  uploadStatus.value = '';
+
+  if (!uploadFile.value) {
+    uploadError.value = 'Choose an image file to upload to the repository.';
+    return;
+  }
+
+  if (!GITHUB_OWNER || !GITHUB_REPO || !GITHUB_TOKEN) {
+    uploadError.value =
+      'GitHub upload is not configured. Please set VITE_GITHUB_REPO_OWNER, VITE_GITHUB_REPO_NAME, and VITE_GITHUB_TOKEN.';
+    return;
+  }
+
+  isUploading.value = true;
+
+  try {
+    const content = await toBase64(uploadFile.value);
+    const targetPath = buildRepoPath(uploadFile.value.name);
+
+    const response = await fetch(
+      `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${targetPath}`,
+      {
+        method: 'PUT',
+        headers: {
+          Authorization: `token ${GITHUB_TOKEN}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/vnd.github.v3+json',
+        },
+        body: JSON.stringify({
+          message: `Add gallery image ${uploadFile.value.name}`,
+          content,
+          branch: GITHUB_BRANCH,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      const errorPayload = await response.json().catch(() => ({}));
+      throw new Error(errorPayload?.message || 'Upload failed.');
+    }
+
+    const payload = await response.json();
+    const rawUrl = payload?.content?.download_url;
+
+    if (!rawUrl) {
+      throw new Error('Upload succeeded but no download URL was returned.');
+    }
+
+    const updatedImages = [
+      ...props.images,
+      {
+        id: `upload-${Date.now()}`,
+        src: rawUrl,
+        alt: uploadAlt.value.trim() || uploadFile.value.name,
+      },
+    ];
+
+    emit('update:images', updatedImages);
+    uploadStatus.value = 'Uploaded to GitHub and added to the gallery.';
+    uploadFile.value = null;
+    uploadAlt.value = '';
+  } catch (error) {
+    uploadError.value = error.message || 'Unable to upload image right now.';
+  } finally {
+    isUploading.value = false;
+  }
+};
+
+const handleUploadSelection = (event) => {
+  const [file] = event.target.files || [];
+  uploadFile.value = file || null;
+  uploadError.value = '';
+  uploadStatus.value = '';
 };
 
 const removeImage = (id) => {
@@ -95,6 +206,9 @@ watch(
     <div v-if="editable" class="gallery__owner-tools" aria-label="Owner gallery controls">
       <div class="gallery__owner-header">
         <h4>Owner controls</h4>
+        <p class="gallery__owner-note">
+          Changes are saved in this browser. Uploads push directly to your GitHub repo and appear in the gallery instantly.
+        </p>
         <p class="gallery__owner-note">Changes are saved in this browser so you can curate the gallery.</p>
       </div>
 
@@ -123,6 +237,34 @@ watch(
           <p v-if="formError" class="gallery__owner-error" role="alert">{{ formError }}</p>
         </div>
       </form>
+
+      <div class="gallery__owner-upload">
+        <div class="gallery__owner-field">
+          <label for="upload-image">Upload to GitHub</label>
+          <input
+            id="upload-image"
+            type="file"
+            accept="image/*"
+            @change="handleUploadSelection"
+          />
+        </div>
+        <div class="gallery__owner-field">
+          <label for="upload-image-alt">Alt text</label>
+          <input
+            id="upload-image-alt"
+            v-model="uploadAlt"
+            type="text"
+            placeholder="Describe the photo"
+          />
+        </div>
+        <div class="gallery__owner-actions">
+          <button type="button" @click="uploadToGitHub" :disabled="isUploading">
+            {{ isUploading ? 'Uploading…' : 'Upload to repo and add' }}
+          </button>
+          <p v-if="uploadStatus" class="gallery__owner-success">{{ uploadStatus }}</p>
+          <p v-if="uploadError" class="gallery__owner-error" role="alert">{{ uploadError }}</p>
+        </div>
+      </div>
 
       <div v-if="images.length" class="gallery__owner-list" aria-label="Current gallery images">
         <div v-for="image in images" :key="image.id" class="gallery__owner-row">
@@ -244,6 +386,14 @@ watch(
   align-items: end;
 }
 
+.gallery__owner-upload {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.75rem;
+  align-items: end;
+}
+
 .gallery__owner-field {
   display: flex;
   flex-direction: column;
@@ -290,6 +440,13 @@ watch(
   box-shadow: 0 16px 25px -18px rgba(255, 118, 26, 0.9);
 }
 
+.gallery__owner-actions button:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
 .gallery__owner-remove {
   justify-self: flex-start;
   background: #991b1b;
@@ -309,6 +466,12 @@ watch(
 .gallery__owner-error {
   margin: 0;
   color: #fca5a5;
+  font-weight: 700;
+}
+
+.gallery__owner-success {
+  margin: 0;
+  color: #34d399;
   font-weight: 700;
 }
 

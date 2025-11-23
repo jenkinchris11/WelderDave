@@ -115,7 +115,6 @@ watch(isAuthenticated, (isAuthed) => {
           </h1>
           <p class="site-header__tagline">Owner login unlocks gallery editing</p>
         </div>
-
         <div class="owner-login">
           <div v-if="isAuthenticated" class="owner-login__status">
             <div class="status-pill">

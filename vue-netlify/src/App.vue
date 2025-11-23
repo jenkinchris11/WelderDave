@@ -305,6 +305,23 @@ watch(isAuthenticated, (isAuthed) => {
   box-shadow: 0 10px 25px -14px rgba(255, 118, 26, 0.8);
 }
 
+.owner-login__link {
+  background: transparent;
+  color: #0f172a;
+  border: none;
+  padding: 0;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.owner-login__link:hover {
+  color: #7c2d12;
+}
+
 .owner-login__button:hover {
   transform: translateY(-1px);
   box-shadow: 0 16px 26px -14px rgba(255, 118, 26, 0.8);

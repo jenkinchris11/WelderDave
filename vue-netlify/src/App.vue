@@ -113,7 +113,6 @@ watch(isAuthenticated, (isAuthed) => {
               <span class="site-title__initial">D</span>ave
             </span>
           </h1>
-          <p class="site-header__tagline">Owner login unlocks gallery editing</p>
         </div>
       </header>
 
@@ -226,7 +225,6 @@ watch(isAuthenticated, (isAuthed) => {
   flex-direction: column;
   text-align: center;
   justify-content: space-between;
-  align-items: flex-start;
   gap: 1rem;
   flex-wrap: wrap;
 }

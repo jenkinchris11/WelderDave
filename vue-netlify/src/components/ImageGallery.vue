@@ -213,8 +213,6 @@ watch(
 
       <div class="gallery__owner-upload">
         <div class="gallery__owner-field">
-          <label for="upload-image">Upload to GitHub</label>
-          <p class="gallery__owner-note">Changes are saved in this browser so you can curate the gallery.</p>
         </div>
       </div>
 

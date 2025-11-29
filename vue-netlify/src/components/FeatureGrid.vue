@@ -18,7 +18,7 @@ const features = [
   },
   {
     title: 'Emergency mobile service',
-    body: 'Can’t make it to the workshop? A mobile call-out service is available when time is critical.'
+    body: 'A mobile call-out service is available when time is critical. Call out charge applies'
   },
   {
     title: 'Friendly local support',

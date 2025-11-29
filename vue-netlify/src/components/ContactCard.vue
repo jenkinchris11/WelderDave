@@ -8,41 +8,25 @@
         allow for a full assessment.
       </p>
     </div>
-    <form class="contact__form" @submit.prevent="handleSubmit">
+    <form ref="formRef" class="contact__form" @submit.prevent="handleSubmit">
       <label>
         Name
-        <input v-model="form.name" type="text" placeholder="Jane Doe" required />
+        <input v-model="form.name" name="user_name" type="text" placeholder="Jane Doe" required />
       </label>
       <label>
-        Email or phone
-        <input v-model="form.contact" type="text" placeholder="jane@example.com / 07xxx xxxxxx" required />
+        Email
+        <input v-model="form.email" name="user_email" type="email" placeholder="jane@example.com" required />
       </label>
       <label>
         Message
         <textarea
           v-model="form.message"
+          name="message"
           placeholder="Share the vehicle, metal type, and repair needs..."
           rows="3"
           required
         ></textarea>
       </label>
-
-      <section class="contact__signature">
-        <div class="contact__signature__header">
-          <p class="contact__signature__label">Signature (optional)</p>
-          <div class="contact__signature__actions">
-            <button type="button" class="contact__signature__action" @click="undoSignature" :disabled="!hasSignature">
-              Undo
-            </button>
-            <button type="button" class="contact__signature__action" @click="clearSignature" :disabled="!hasSignature">
-              Clear
-            </button>
-          </div>
-        </div>
-        <p class="contact__signature__help">
-          {{ signatureHelpText }}
-        </p>
-      </section>
 
       <button type="submit" :disabled="sending">{{ sending ? 'Sending...' : 'Send message' }}</button>
       <p v-if="status.message" :class="['contact__status', `contact__status--${status.type}`]">
@@ -53,44 +37,34 @@
 </template>
 
 <script setup>
-import { reactive, ref, computed } from 'vue';
+import { reactive, ref } from 'vue';
 import emailjs from '@emailjs/browser';
+
+const formRef = ref(null);
 
 const form = reactive({
   name: '',
-  contact: '',
+  email: '',
   message: '',
 });
 
 const sending = ref(false);
 const status = reactive({ message: '', type: '' });
-const signaturePad = ref(null);
 
 const emailServiceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const emailTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const emailPublicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-const emailPrivateKey = import.meta.env.VITE_EMAILJS_PRIVATE_KEY;
-const dropboxAccessToken = import.meta.env.VITE_DROPBOX_ACCESS_TOKEN;
-const dropboxSignaturePath = import.meta.env.VITE_DROPBOX_SIGNATURE_PATH || '/signatures';
+
+if (emailPublicKey) {
+  emailjs.init(emailPublicKey);
+}
 
 const resetStatus = () => {
   status.message = '';
   status.type = '';
 };
 
-const validateForm = () => form.name.trim() && form.contact.trim() && form.message.trim();
-
-const dataUrlToBlob = (dataUrl) => {
-  const [meta, base64Data] = dataUrl.split(',');
-  const mimeMatch = meta.match(/data:(.*);base64/);
-  const mime = mimeMatch ? mimeMatch[1] : 'image/png';
-  const binary = atob(base64Data);
-  const array = new Uint8Array(binary.length);
-  for (let i = 0; i < binary.length; i += 1) {
-    array[i] = binary.charCodeAt(i);
-  }
-  return new Blob([array], { type: mime });
-};
+const validateForm = () => form.name.trim() && form.email.trim() && form.message.trim();
 
 const handleSubmit = async () => {
   resetStatus();
@@ -109,18 +83,14 @@ const handleSubmit = async () => {
   sending.value = true;
 
   try {
-    const templateParams = await buildTemplateParams();
-    const sendOptions = emailPrivateKey
-      ? { publicKey: emailPublicKey, privateKey: emailPrivateKey }
-      : { publicKey: emailPublicKey };
-
-    await emailjs.send(emailServiceId, emailTemplateId, templateParams, sendOptions);
+    await emailjs.sendForm(emailServiceId, emailTemplateId, formRef.value);
 
     status.message = 'Thanks! Your message has been sent.';
     status.type = 'success';
     form.name = '';
-    form.contact = '';
+    form.email = '';
     form.message = '';
+    formRef.value?.reset();
   } catch (error) {
     status.message = error?.message || 'Something went wrong while sending your request.';
     status.type = 'error';
@@ -223,60 +193,5 @@ button:disabled {
 
 .contact__status--error {
   color: #ff9e9e;
-}
-
-.contact__signature {
-  border: 1px solid #2c2c2c;
-  border-radius: 0.75rem;
-  padding: 0.75rem;
-  background: rgba(255, 255, 255, 0.04);
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.contact__signature__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.contact__signature__label {
-  margin: 0;
-  color: #ffffff;
-  font-weight: 600;
-}
-
-.contact__signature__actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.contact__signature__action {
-  background: transparent;
-  border: 1px solid #FF761A;
-  color: #FF761A;
-  padding: 0.35rem 0.75rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.contact__signature__action:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.contact__signature__pad {
-  width: 100%;
-  background: #151515;
-  border-radius: 0.5rem;
-  border: 1px dashed #FF761A;
-}
-
-.contact__signature__help {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #d1d1d1;
 }
 </style>

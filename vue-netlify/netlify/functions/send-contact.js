@@ -15,11 +15,13 @@ const CORS_HEADERS = {
 };
 
 exports.handler = async (event) => {
-  if (event.httpMethod === 'OPTIONS') {
+  const httpMethod = event.httpMethod?.toUpperCase();
+
+  if (httpMethod === 'OPTIONS') {
     return { statusCode: 200, headers: CORS_HEADERS, body: '' };
   }
 
-  if (event.httpMethod !== 'POST') {
+  if (httpMethod !== 'POST') {
     return { statusCode: 405, body: JSON.stringify({ error: 'Method not allowed' }) };
   }
 

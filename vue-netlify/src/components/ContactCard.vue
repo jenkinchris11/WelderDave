@@ -92,13 +92,6 @@ const dataUrlToBlob = (dataUrl) => {
   return new Blob([array], { type: mime });
 };
 
-  return {
-    from_name: form.name,
-    contact_method: form.contact,
-    message: form.message,
-  };
-};
-
 const handleSubmit = async () => {
   resetStatus();
   if (!validateForm()) {

@@ -3,7 +3,7 @@
     <div class="contact__intro">
       <h3>Ready when you are</h3>
       <p>
-        Whatever your metal needs, call or message me with the job details and location. Please note that in order to assess metal structurally, I need to see your vehicle/project, as photographs alone do not allow for a full assessment.
+        Whatever your metal needs, call or message me with the job details and location. <br> Please note that in order to assess metal structurally, I need to see your vehicle/project, as photographs alone do not allow for a full assessment.
       </p>
     </div>
     <form class="contact__form" @submit.prevent>

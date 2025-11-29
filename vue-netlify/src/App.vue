@@ -256,6 +256,7 @@ watch(isAuthenticated, (isAuthed) => {
   flex-direction: column;
   gap: 0.65rem;
   width: 100%;
+  align-items: center;
 }
 
 .owner-login__panel--expanded,

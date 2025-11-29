@@ -61,9 +61,7 @@
 
 <script setup>
 import { reactive, ref, computed } from 'vue';
-import { Dropbox } from 'dropbox';
 import emailjs from '@emailjs/browser';
-import VueSignaturePad from 'vue-signature-pad';
 
 const form = reactive({
   name: '',

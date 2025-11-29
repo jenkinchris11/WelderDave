@@ -19,6 +19,20 @@ const googleReviewLink = 'https://share.google/C6NldHkAwhkCZ2xRX'
       <a :href="googleReviewLink" class="btn" target="_blank" rel="noreferrer">
         View on Google
       </a>
+         <EditableText
+        content-key="reviews-eyebrow"
+        tag="p"
+        class="eyebrow"
+        :editable="props.editable"
+        default-text="Find Us On Google"
+      />
+      <EditableText
+        content-key="reviews-heading"
+        tag="h3"
+        :editable="props.editable"
+        :multiline="true"
+        default-text="Locals trust WelderDave for fast, tidy welding work"
+      />
     </div>
 
     <div class="reviews__embed">

@@ -162,7 +162,7 @@ watch(isAuthenticated, (isAuthed) => {
 
       <footer class="site-footer">
         <small>Visit us at Gillies St, Accrington. Auto welding. Custom metal fabricator. MOT welding Accrington, Lancashire. Weekend and evening appointments available.</small>
-        <small>Accrington mobile welder • Welding & fabrication expertise</small>
+        <small>Accrington welder • Welding & fabrication expertise</small>
 
         <div class="owner-login" aria-label="Owner access controls">
           <div v-if="isAuthenticated" class="owner-login__status">

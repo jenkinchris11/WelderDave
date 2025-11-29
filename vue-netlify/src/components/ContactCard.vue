@@ -7,6 +7,7 @@
         :editable="editable"
         default-text="Ready when you are"
       />
+      <br>
       <EditableText
         content-key="contact-body"
         tag="p"

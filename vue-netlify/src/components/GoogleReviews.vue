@@ -9,7 +9,6 @@ const props = defineProps({
 })
 
 const googleReviewLink = 'https://share.google/C6NldHkAwhkCZ2xRX'
-const embedLink = `${googleReviewLink}?embed=1`
 </script>
 
 <template>
@@ -40,15 +39,24 @@ const embedLink = `${googleReviewLink}?embed=1`
     </div>
 
     <div class="reviews__embed">
-      <iframe
-        :src="embedLink"
-        width="400"
-        height="300"
-        style="border:0;"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-      ></iframe>
+      <div class="reviews__placeholder">
+        <EditableText
+          content-key="reviews-placeholder"
+          tag="p"
+          class="lede"
+          :editable="props.editable"
+          :multiline="true"
+          default-text="Preview unavailable here. Open our Google profile to read the latest reviews."
+        />
+        <a :href="googleReviewLink" class="btn" target="_blank" rel="noreferrer">
+          <EditableText
+            content-key="reviews-placeholder-cta"
+            tag="span"
+            :editable="props.editable"
+            default-text="Open Google Reviews"
+          />
+        </a>
+      </div>
     </div>
   </section>
 </template>
@@ -120,17 +128,23 @@ h3 {
   opacity: 0.85;
 }
 
-.reviews__embed iframe {
+.reviews__embed {
   width: 100%;
-  min-height: 420px;
-  border: none;
-  border-radius: 1.25rem;
+}
+
+.reviews__placeholder {
   background: white;
+  color: #0f172a;
+  border-radius: 1.25rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  box-shadow: 0 20px 40px -30px rgba(15, 23, 42, 0.45);
+  display: grid;
+  gap: 1rem;
 }
 
 @media (max-width: 767px) {
-  .reviews__embed iframe {
-    min-height: 360px;
+  .reviews__embed {
+    width: 100%;
   }
 }
 </style>

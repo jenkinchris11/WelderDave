@@ -207,7 +207,7 @@ watch(
       <div class="gallery__owner-header">
         <h4>Owner controls</h4>
         <p class="gallery__owner-note">
-          Changes are saved in this browser. Uploads push directly to your GitHub repo and appear in the gallery instantly.
+          Changes are saved in this browser. Uploads should appear in the gallery instantly.
         </p>
       </div>
 

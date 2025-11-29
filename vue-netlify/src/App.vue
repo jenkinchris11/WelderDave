@@ -6,6 +6,7 @@ import FeatureGrid from './components/FeatureGrid.vue';
 import GoogleReviews from './components/GoogleReviews.vue';
 import ImageGallery from './components/ImageGallery.vue';
 import ContactCard from './components/ContactCard.vue';
+import EditableText from './components/EditableText.vue';
 import { defaultGalleryImages } from './data/galleryData.js';
 import sideVideo from './assets/Animation.mp4';
 import workerLottie from './assets/Worker yellow and black.lottie';
@@ -118,7 +119,7 @@ watch(isAuthenticated, (isAuthed) => {
 
       <main class="layout-grid">
         <section class="layout-grid__item layout-grid__item--hero">
-          <HeroSection />
+          <HeroSection :editable="isAuthenticated" />
         </section>
 
         <section class="layout-grid__item layout-grid__item--elfsight">
@@ -126,7 +127,7 @@ watch(isAuthenticated, (isAuthed) => {
         </section>
 
         <section id="services" class="layout-grid__item layout-grid__item--features">
-          <FeatureGrid />
+          <FeatureGrid :editable="isAuthenticated" />
         </section>
 
         <section
@@ -144,7 +145,7 @@ watch(isAuthenticated, (isAuthed) => {
           ></dotlottie-player>
         </section>
         <section class="layout-grid__item layout-grid__item--reviews">
-          <GoogleReviews />
+          <GoogleReviews :editable="isAuthenticated" />
         </section>
         
         <section class="layout-grid__item layout-grid__item--gallery">
@@ -156,13 +157,23 @@ watch(isAuthenticated, (isAuthed) => {
         </section>
 
         <section id="contact" class="layout-grid__item layout-grid__item--contact">
-          <ContactCard />
+          <ContactCard :editable="isAuthenticated" />
         </section>
       </main>
 
       <footer class="site-footer">
-        <small>Visit us at Gillies St, Accrington. Auto welding. Custom metal fabricator. MOT welding Accrington, Lancashire. Weekend and evening appointments available.</small>
-        <small>Accrington welder • Welding & fabrication expertise</small>
+        <EditableText
+          content-key="footer-primary"
+          tag="small"
+          :editable="isAuthenticated"
+          default-text="Visit us at Gillies St, Accrington. Auto welding. Custom metal fabricator. MOT welding Accrington, Lancashire. Weekend and evening appointments available."
+        />
+        <EditableText
+          content-key="footer-secondary"
+          tag="small"
+          :editable="isAuthenticated"
+          default-text="Accrington welder • Welding & fabrication expertise"
+        />
 
         <div class="owner-login" aria-label="Owner access controls">
           <div v-if="isAuthenticated" class="owner-login__status">
@@ -170,7 +181,7 @@ watch(isAuthenticated, (isAuthed) => {
               <span class="status-pill__dot" aria-hidden="true"></span>
               <span class="status-pill__text">Owner mode active</span>
             </div>
-            <p class="owner-login__hint">You can now add, edit, and remove gallery images.</p>
+            <p class="owner-login__hint">You can now edit any page text and manage gallery images.</p>
             <button type="button" class="owner-login__button owner-login__button--ghost" @click="logout">
               Log out
             </button>

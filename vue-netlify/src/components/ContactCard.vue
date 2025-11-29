@@ -1,12 +1,19 @@
 <template>
   <section class="contact">
     <div class="contact__intro">
-      <h3>Ready when you are</h3>
-      <p>
-        Whatever your metal needs, call or message me with the job details and location. <br>
-        Please note that in order to assess metal structurally, I need to see your vehicle/project, as photographs alone do not
-        allow for a full assessment.
-      </p>
+      <EditableText
+        content-key="contact-heading"
+        tag="h3"
+        :editable="editable"
+        default-text="Ready when you are"
+      />
+      <EditableText
+        content-key="contact-body"
+        tag="p"
+        :editable="editable"
+        :multiline="true"
+        default-text="Whatever your metal needs, call or message me with the job details and location. Please note that in order to assess metal structurally, I need to see your vehicle/project, as photographs alone do not allow for a full assessment."
+      />
     </div>
     <form ref="formRef" class="contact__form" @submit.prevent="handleSubmit">
       <label>
@@ -39,6 +46,14 @@
 <script setup>
 import { reactive, ref } from 'vue';
 import emailjs from '@emailjs/browser';
+import EditableText from './EditableText.vue'
+
+defineProps({
+  editable: {
+    type: Boolean,
+    default: false,
+  },
+})
 
 const formRef = ref(null);
 

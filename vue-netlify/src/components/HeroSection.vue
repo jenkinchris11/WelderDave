@@ -10,7 +10,7 @@ import welderBeamImage from '../assets/WelderBeam.png'
     </div>
     <div class="hero__content">
       <p class="eyebrow">Accrington based welder</p>
-      <h2>Precision welding & fabrication for every vehicle</h2>
+      <h2>Precision welding & fabrication for every project</h2>
       <p class="lede">
         Welding and fabrication services covering ferrous and non-ferrous metals, MOT failures, and
         chassis repairs for cars, commercials, campers, classics, motorcycles, and machinery. 

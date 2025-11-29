@@ -40,21 +40,7 @@ const googleReviewLink = 'https://share.google/C6NldHkAwhkCZ2xRX'
 
     <div class="reviews__embed">
       <div class="reviews__placeholder">
-        <EditableText
-          content-key="reviews-placeholder"
-          tag="p"
-          class="lede"
-          :editable="props.editable"
-          :multiline="true"
-          default-text="Preview unavailable here. Open our Google profile to read the latest reviews."
-        />
-        <a :href="googleReviewLink" class="btn" target="_blank" rel="noreferrer">
-          <EditableText
-            content-key="reviews-placeholder-cta"
-            tag="span"
-            :editable="props.editable"
-            default-text="Open Google Reviews"
-          />
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2359.074748593415!2d-2.3619213232434344!3d53.75255207240996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487b99189bb89acb%3A0xd6b6471380a38543!2sWelderDave%20-%20Accrington%20Welding%20%26%20Fabrication!5e0!3m2!1sen!2suk!4v1764429838167!5m2!1sen!2suk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </a>
       </div>
     </div>

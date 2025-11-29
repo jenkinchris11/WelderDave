@@ -45,12 +45,12 @@ const addImage = () => {
   }
 
   const updatedImages = [
-    ...props.images,
     {
       id: `custom-${Date.now()}`,
       src: newImage.src.trim(),
       alt: newImage.alt.trim() || 'Gallery image',
     },
+    ...props.images,
   ];
 
   emit('update:images', updatedImages);
@@ -133,12 +133,12 @@ const uploadToGitHub = async () => {
     }
 
     const updatedImages = [
-      ...props.images,
       {
         id: `upload-${Date.now()}`,
         src: rawUrl,
         alt: uploadAlt.value.trim() || uploadFile.value.name,
       },
+      ...props.images,
     ];
 
     emit('update:images', updatedImages);

@@ -39,13 +39,6 @@
             </button>
           </div>
         </div>
-        <VueSignaturePad
-          ref="signaturePad"
-          class="contact__signature__pad"
-          :options="{ penColor: '#ffffff' }"
-          :width="'100%'"
-          :height="'180px'"
-        />
         <p class="contact__signature__help">
           {{ signatureHelpText }}
         </p>
@@ -80,18 +73,6 @@ const emailPrivateKey = import.meta.env.VITE_EMAILJS_PRIVATE_KEY;
 const dropboxAccessToken = import.meta.env.VITE_DROPBOX_ACCESS_TOKEN;
 const dropboxSignaturePath = import.meta.env.VITE_DROPBOX_SIGNATURE_PATH || '/signatures';
 
-const hasSignature = computed(() => {
-  const saved = signaturePad.value?.saveSignature();
-  return saved && !saved.isEmpty;
-});
-
-const signatureHelpText = computed(() => {
-  if (dropboxAccessToken) {
-    return 'Sign above to include an optional signature. It will upload securely to Dropbox when available.';
-  }
-  return 'Sign above to include an optional signature with your message.';
-});
-
 const resetStatus = () => {
   status.message = '';
   status.type = '';
@@ -111,45 +92,10 @@ const dataUrlToBlob = (dataUrl) => {
   return new Blob([array], { type: mime });
 };
 
-const uploadSignatureToDropbox = async (dataUrl) => {
-  if (!dropboxAccessToken || !dataUrl) return null;
-
-  const dbx = new Dropbox({ accessToken: dropboxAccessToken, fetch });
-  const fileName = `${Date.now()}-${form.name || 'signature'}.png`;
-  const filePath = `${dropboxSignaturePath}/${fileName}`;
-  const contents = dataUrlToBlob(dataUrl);
-
-  const uploadResponse = await dbx.filesUpload({ path: filePath, contents });
-  const shared = await dbx.sharingCreateSharedLinkWithSettings({ path: uploadResponse.result.path_lower });
-
-  return shared.result.url ? shared.result.url.replace('?dl=0', '?raw=1') : null;
-};
-
-const clearSignature = () => {
-  signaturePad.value?.clearSignature();
-};
-
-const undoSignature = () => {
-  signaturePad.value?.undoSignature();
-};
-
-const buildTemplateParams = async () => {
-  const saved = signaturePad.value?.saveSignature();
-  const signatureData = saved && !saved.isEmpty ? saved.data : '';
-
-  let signatureUrl = '';
-  if (signatureData) {
-    signatureUrl = (await uploadSignatureToDropbox(signatureData)) || '';
-  }
-
   return {
     from_name: form.name,
     contact_method: form.contact,
     message: form.message,
-    signature_url: signatureUrl,
-    signature_data: signatureData,
-    signature_included: Boolean(signatureData),
-    dropbox_upload_used: Boolean(signatureUrl),
   };
 };
 
@@ -182,7 +128,6 @@ const handleSubmit = async () => {
     form.name = '';
     form.contact = '';
     form.message = '';
-    clearSignature();
   } catch (error) {
     status.message = error?.message || 'Something went wrong while sending your request.';
     status.type = 'error';

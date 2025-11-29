@@ -1,20 +1,62 @@
 <script setup>
-const googleReviewLink = 'https://share.google/C6NldHkAwhkCZ2xRX';
-const embedLink = `${googleReviewLink}?embed=1`;
+import EditableText from './EditableText.vue'
+
+const props = defineProps({
+  editable: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+const googleReviewLink = 'https://share.google/C6NldHkAwhkCZ2xRX'
 </script>
 
 <template>
   <section class="reviews">
     <div class="reviews__content">
-      <p style="color: #FF761A;">Find Us On Google</p>
-      <h3>Locals trust WelderDave for fast, <br> tidy welding work</h3>
+      <EditableText
+        content-key="reviews-eyebrow"
+        tag="p"
+        class="eyebrow"
+        :editable="props.editable"
+        default-text="Find Us On Google"
+      />
+      <EditableText
+        content-key="reviews-heading"
+        tag="h3"
+        :editable="props.editable"
+        :multiline="true"
+        default-text="Locals trust WelderDave for fast, tidy welding work"
+      />
       <a :href="googleReviewLink" class="btn" target="_blank" rel="noreferrer">
-        View on Google
+        <EditableText
+          content-key="reviews-cta"
+          tag="span"
+          :editable="props.editable"
+          default-text="View on Google"
+        />
       </a>
     </div>
 
     <div class="reviews__embed">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2359.074748593415!2d-2.3619213232434344!3d53.75255207240996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487b99189bb89acb%3A0xd6b6471380a38543!2sWelderDave%20-%20Accrington%20Welding%20%26%20Fabrication!5e0!3m2!1sen!2suk!4v1763318812359!5m2!1sen!2suk" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="reviews__placeholder">
+        <EditableText
+          content-key="reviews-placeholder"
+          tag="p"
+          class="lede"
+          :editable="props.editable"
+          :multiline="true"
+          default-text="Preview unavailable here. Open our Google profile to read the latest reviews."
+        />
+        <a :href="googleReviewLink" class="btn" target="_blank" rel="noreferrer">
+          <EditableText
+            content-key="reviews-placeholder-cta"
+            tag="span"
+            :editable="props.editable"
+            default-text="Open Google Reviews"
+          />
+        </a>
+      </div>
     </div>
   </section>
 </template>
@@ -49,7 +91,7 @@ const embedLink = `${googleReviewLink}?embed=1`;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 600;
-  color: white;
+  color: #FF761A;
 }
 
 h3 {
@@ -86,17 +128,23 @@ h3 {
   opacity: 0.85;
 }
 
-.reviews__embed iframe {
+.reviews__embed {
   width: 100%;
-  min-height: 420px;
-  border: none;
-  border-radius: 1.25rem;
+}
+
+.reviews__placeholder {
   background: white;
+  color: #0f172a;
+  border-radius: 1.25rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  box-shadow: 0 20px 40px -30px rgba(15, 23, 42, 0.45);
+  display: grid;
+  gap: 1rem;
 }
 
 @media (max-width: 767px) {
-  .reviews__embed iframe {
-    min-height: 360px;
+  .reviews__embed {
+    width: 100%;
   }
 }
 </style>

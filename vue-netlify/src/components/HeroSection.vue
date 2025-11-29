@@ -1,6 +1,14 @@
 <script setup>
+import EditableText from './EditableText.vue'
 import welderImage from '../assets/Welder.png'
 import welderBeamImage from '../assets/WelderBeam.png'
+
+defineProps({
+  editable: {
+    type: Boolean,
+    default: false,
+  },
+})
 </script>
 
 <template>
@@ -9,15 +17,36 @@ import welderBeamImage from '../assets/WelderBeam.png'
       <img class="hero__image hero__image--primary" :src="welderImage" alt="Welder Dave welding a vehicle" />
     </div>
     <div class="hero__content">
-      <p class="eyebrow">Accrington based welder</p>
-      <h2>Precision welding & fabrication for every project</h2>
-      <p class="lede">
-        Welding and fabrication services covering ferrous and non-ferrous metals, MOT failures, and
-        chassis repairs for cars, commercials, campers, classics, motorcycles, and machinery. 
-        MIG, TIG and MMA welding in Accrington. Custom fabrication. Welding of aluminium, brass, cast iron, copper, mild steel, stainless steel and titanium.
-      </p>
+      <EditableText
+        content-key="hero-eyebrow"
+        tag="p"
+        class="eyebrow"
+        :editable="editable"
+        default-text="Accrington based welder"
+      />
+      <EditableText
+        content-key="hero-heading"
+        tag="h2"
+        :editable="editable"
+        default-text="Precision welding & fabrication for every project"
+      />
+      <EditableText
+        content-key="hero-lede"
+        tag="p"
+        class="lede"
+        :editable="editable"
+        :multiline="true"
+        default-text="Welding and fabrication services covering ferrous and non-ferrous metals, MOT failures, and chassis repairs for cars, commercials, campers, classics, motorcycles, and machinery. MIG, TIG and MMA welding in Accrington. Custom fabrication. Welding of aluminium, brass, cast iron, copper, mild steel, stainless steel and titanium."
+      />
       <div class="hero__actions">
-        <a class="primary" href="tel:07444259596">Call or message WelderDave</a>
+        <a class="primary" href="tel:07444259596">
+          <EditableText
+            content-key="hero-cta"
+            tag="span"
+            :editable="editable"
+            default-text="Call or message WelderDave"
+          />
+        </a>
       </div>
     </div>
     <div class="hero__visual hero__visual--right" aria-hidden="true">

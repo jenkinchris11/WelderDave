@@ -1,26 +1,41 @@
 <script setup>
+import EditableText from './EditableText.vue'
+
+const props = defineProps({
+  editable: {
+    type: Boolean,
+    default: false,
+  },
+})
+
 const features = [
   {
+    id: 'welding',
     title: 'Welding & fabrication',
     body: 'From bespoke brackets to full structural work, every job is handled with clean, reliable welds.'
   },
   {
+    id: 'repairs',
     title: 'Repairs & MOT failures',
     body: 'Sort troublesome advisories fast with patch panels, floor sections, and sill repairs ready for retest.'
   },
   {
+    id: 'metals',
     title: 'Ferrous & non-ferrous metals',
     body: 'Time served with over thirty years of experience in a range of industries, including aeronautical engineering, food-standard welding, structural steel, and sheet metal fabrication. Industrial, domestic, and auto welding.'
   },
   {
+    id: 'vehicles',
     title: 'Cars, commercials & campers',
     body: 'Auto chassis welding of 4x4s. Vehicle restoration completed to a high standard. Complex projects undertaken. I provide solid, dependable work at a price that makes sense.'
   },
   {
+    id: 'emergency',
     title: 'Emergency mobile service',
     body: 'A mobile call-out service is available when time is critical. Call out charge applies'
   },
   {
+    id: 'support',
     title: 'Friendly local support',
     body: 'Whatever your metal need, call or message WelderDave for practical advice and fast turnaround.'
   }
@@ -30,13 +45,37 @@ const features = [
 <template>
   <section class="feature-grid">
     <div class="feature-grid__heading">
-      <h3 class="eyebrow">Services</h3>
-      <p class="lede">Full welding coverage for your chassis, bodywork, and custom fabrication ideas.</p>
+      <EditableText
+        content-key="features-eyebrow"
+        tag="h3"
+        class="eyebrow"
+        :editable="props.editable"
+        default-text="Services"
+      />
+      <EditableText
+        content-key="features-lede"
+        tag="p"
+        class="lede"
+        :editable="props.editable"
+        :multiline="true"
+        default-text="Full welding coverage for your chassis, bodywork, and custom fabrication ideas."
+      />
     </div>
     <div class="grid">
-      <article v-for="feature in features" :key="feature.title">
-        <h4>{{ feature.title }}</h4>
-        <p>{{ feature.body }}</p>
+      <article v-for="feature in features" :key="feature.id">
+        <EditableText
+          :content-key="`feature-${feature.id}-title`"
+          tag="h4"
+          :editable="props.editable"
+          :default-text="feature.title"
+        />
+        <EditableText
+          :content-key="`feature-${feature.id}-body`"
+          tag="p"
+          :editable="props.editable"
+          :multiline="true"
+          :default-text="feature.body"
+        />
       </article>
     </div>
   </section>

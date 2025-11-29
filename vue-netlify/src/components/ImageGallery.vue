@@ -1,5 +1,6 @@
 <script setup>
 import { reactive, ref, watch } from 'vue';
+import EditableText from './EditableText.vue';
 
 const props = defineProps({
   images: {
@@ -195,12 +196,26 @@ watch(
 <template>
   <section class="gallery">
     <header class="gallery__header">
-      <p class="eyebrow">Swipe Gallery</p>
-      <h3>See everything WelderDave can fabricate</h3>
-      <p>
-        Explore high-resolution shots of mobile welding repairs, ornate gates, and
-        heavy-duty fabrication. Swipe or drag through the gallery to view every project image.
-      </p>
+      <EditableText
+        content-key="gallery-eyebrow"
+        tag="p"
+        class="eyebrow"
+        :editable="editable"
+        default-text="Swipe Gallery"
+      />
+      <EditableText
+        content-key="gallery-heading"
+        tag="h3"
+        :editable="editable"
+        default-text="See everything WelderDave can fabricate"
+      />
+      <EditableText
+        content-key="gallery-lede"
+        tag="p"
+        :editable="editable"
+        :multiline="true"
+        default-text="Explore high-resolution shots of mobile welding repairs, ornate gates, and heavy-duty fabrication. Swipe or drag through the gallery to view every project image."
+      />
     </header>
 
     <div v-if="editable" class="gallery__owner-tools" aria-label="Owner gallery controls">

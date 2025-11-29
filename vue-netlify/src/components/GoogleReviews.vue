@@ -14,27 +14,10 @@ const googleReviewLink = 'https://share.google/C6NldHkAwhkCZ2xRX'
 <template>
   <section class="reviews">
     <div class="reviews__content">
-      <EditableText
-        content-key="reviews-eyebrow"
-        tag="p"
-        class="eyebrow"
-        :editable="props.editable"
-        default-text="Find Us On Google"
-      />
-      <EditableText
-        content-key="reviews-heading"
-        tag="h3"
-        :editable="props.editable"
-        :multiline="true"
-        default-text="Locals trust WelderDave for fast, tidy welding work"
-      />
+      <p style="color: #FF761A;">Find Us On Google</p>
+      <h3>Locals trust WelderDave for fast, <br> tidy welding work</h3>
       <a :href="googleReviewLink" class="btn" target="_blank" rel="noreferrer">
-        <EditableText
-          content-key="reviews-cta"
-          tag="span"
-          :editable="props.editable"
-          default-text="View on Google"
-        />
+        View on Google
       </a>
     </div>
 
@@ -74,7 +57,7 @@ const googleReviewLink = 'https://share.google/C6NldHkAwhkCZ2xRX'
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 600;
-  color: #FF761A;
+  color: white;
 }
 
 h3 {
@@ -111,23 +94,17 @@ h3 {
   opacity: 0.85;
 }
 
-.reviews__embed {
+.reviews__embed iframe {
   width: 100%;
-}
-
-.reviews__placeholder {
-  background: white;
-  color: #0f172a;
+  min-height: 420px;
+  border: none;
   border-radius: 1.25rem;
-  padding: clamp(1.5rem, 3vw, 2.5rem);
-  box-shadow: 0 20px 40px -30px rgba(15, 23, 42, 0.45);
-  display: grid;
-  gap: 1rem;
+  background: white;
 }
 
 @media (max-width: 767px) {
-  .reviews__embed {
-    width: 100%;
+  .reviews__embed iframe {
+    min-height: 360px;
   }
 }
 </style>

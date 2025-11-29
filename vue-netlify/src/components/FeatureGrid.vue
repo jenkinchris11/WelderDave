@@ -62,7 +62,7 @@ const features = [
       />
     </div>
     <div class="grid">
-      <article v-for="feature in features" :key="feature.id">
+      <article :id="`service-${feature.id}`" v-for="feature in features" :key="feature.id">
         <EditableText
           :content-key="`feature-${feature.id}-title`"
           tag="h4"

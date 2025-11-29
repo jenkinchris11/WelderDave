@@ -9,7 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.4.0"
+    "@emailjs/browser": "^4.4.1",
+    "dropbox": "^10.35.0",
+    "vue": "^3.4.0",
+    "vue-signature-pad": "^3.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.0",

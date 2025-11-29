@@ -26,6 +26,31 @@
           required
         ></textarea>
       </label>
+
+      <section class="contact__signature">
+        <div class="contact__signature__header">
+          <p class="contact__signature__label">Signature (optional)</p>
+          <div class="contact__signature__actions">
+            <button type="button" class="contact__signature__action" @click="undoSignature" :disabled="!hasSignature">
+              Undo
+            </button>
+            <button type="button" class="contact__signature__action" @click="clearSignature" :disabled="!hasSignature">
+              Clear
+            </button>
+          </div>
+        </div>
+        <VueSignaturePad
+          ref="signaturePad"
+          class="contact__signature__pad"
+          :options="{ penColor: '#ffffff' }"
+          :width="'100%'"
+          :height="'180px'"
+        />
+        <p class="contact__signature__help">
+          {{ signatureHelpText }}
+        </p>
+      </section>
+
       <button type="submit" :disabled="sending">{{ sending ? 'Sending...' : 'Send message' }}</button>
       <p v-if="status.message" :class="['contact__status', `contact__status--${status.type}`]">
         {{ status.message }}
@@ -35,7 +60,10 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref, computed } from 'vue';
+import { Dropbox } from 'dropbox';
+import emailjs from '@emailjs/browser';
+import VueSignaturePad from 'vue-signature-pad';
 
 const form = reactive({
   name: '',
@@ -45,7 +73,26 @@ const form = reactive({
 
 const sending = ref(false);
 const status = reactive({ message: '', type: '' });
-const contactEndpoint = import.meta.env.VITE_CONTACT_ENDPOINT || '/.netlify/functions/send-contact';
+const signaturePad = ref(null);
+
+const emailServiceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const emailTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const emailPublicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+const emailPrivateKey = import.meta.env.VITE_EMAILJS_PRIVATE_KEY;
+const dropboxAccessToken = import.meta.env.VITE_DROPBOX_ACCESS_TOKEN;
+const dropboxSignaturePath = import.meta.env.VITE_DROPBOX_SIGNATURE_PATH || '/signatures';
+
+const hasSignature = computed(() => {
+  const saved = signaturePad.value?.saveSignature();
+  return saved && !saved.isEmpty;
+});
+
+const signatureHelpText = computed(() => {
+  if (dropboxAccessToken) {
+    return 'Sign above to include an optional signature. It will upload securely to Dropbox when available.';
+  }
+  return 'Sign above to include an optional signature with your message.';
+});
 
 const resetStatus = () => {
   status.message = '';
@@ -53,6 +100,60 @@ const resetStatus = () => {
 };
 
 const validateForm = () => form.name.trim() && form.contact.trim() && form.message.trim();
+
+const dataUrlToBlob = (dataUrl) => {
+  const [meta, base64Data] = dataUrl.split(',');
+  const mimeMatch = meta.match(/data:(.*);base64/);
+  const mime = mimeMatch ? mimeMatch[1] : 'image/png';
+  const binary = atob(base64Data);
+  const array = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i += 1) {
+    array[i] = binary.charCodeAt(i);
+  }
+  return new Blob([array], { type: mime });
+};
+
+const uploadSignatureToDropbox = async (dataUrl) => {
+  if (!dropboxAccessToken || !dataUrl) return null;
+
+  const dbx = new Dropbox({ accessToken: dropboxAccessToken, fetch });
+  const fileName = `${Date.now()}-${form.name || 'signature'}.png`;
+  const filePath = `${dropboxSignaturePath}/${fileName}`;
+  const contents = dataUrlToBlob(dataUrl);
+
+  const uploadResponse = await dbx.filesUpload({ path: filePath, contents });
+  const shared = await dbx.sharingCreateSharedLinkWithSettings({ path: uploadResponse.result.path_lower });
+
+  return shared.result.url ? shared.result.url.replace('?dl=0', '?raw=1') : null;
+};
+
+const clearSignature = () => {
+  signaturePad.value?.clearSignature();
+};
+
+const undoSignature = () => {
+  signaturePad.value?.undoSignature();
+};
+
+const buildTemplateParams = async () => {
+  const saved = signaturePad.value?.saveSignature();
+  const signatureData = saved && !saved.isEmpty ? saved.data : '';
+
+  let signatureUrl = '';
+  if (signatureData) {
+    signatureUrl = (await uploadSignatureToDropbox(signatureData)) || '';
+  }
+
+  return {
+    from_name: form.name,
+    contact_method: form.contact,
+    message: form.message,
+    signature_url: signatureUrl,
+    signature_data: signatureData,
+    signature_included: Boolean(signatureData),
+    dropbox_upload_used: Boolean(signatureUrl),
+  };
+};
 
 const handleSubmit = async () => {
   resetStatus();
@@ -62,27 +163,30 @@ const handleSubmit = async () => {
     return;
   }
 
+  if (!emailServiceId || !emailTemplateId || !emailPublicKey) {
+    status.message = 'Email service is not configured. Please try again later.';
+    status.type = 'error';
+    return;
+  }
+
   sending.value = true;
 
   try {
-    const response = await fetch(contactEndpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
-    });
+    const templateParams = await buildTemplateParams();
+    const sendOptions = emailPrivateKey
+      ? { publicKey: emailPublicKey, privateKey: emailPrivateKey }
+      : { publicKey: emailPublicKey };
 
-    if (!response.ok) {
-      const details = await response.json().catch(() => ({}));
-      throw new Error(details.error || 'Unable to send your message right now.');
-    }
+    await emailjs.send(emailServiceId, emailTemplateId, templateParams, sendOptions);
 
     status.message = 'Thanks! Your message has been sent.';
     status.type = 'success';
     form.name = '';
     form.contact = '';
     form.message = '';
+    clearSignature();
   } catch (error) {
-    status.message = error.message || 'Something went wrong while sending your request.';
+    status.message = error?.message || 'Something went wrong while sending your request.';
     status.type = 'error';
   } finally {
     sending.value = false;
@@ -183,5 +287,60 @@ button:disabled {
 
 .contact__status--error {
   color: #ff9e9e;
+}
+
+.contact__signature {
+  border: 1px solid #2c2c2c;
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact__signature__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contact__signature__label {
+  margin: 0;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.contact__signature__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.contact__signature__action {
+  background: transparent;
+  border: 1px solid #FF761A;
+  color: #FF761A;
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.contact__signature__action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.contact__signature__pad {
+  width: 100%;
+  background: #151515;
+  border-radius: 0.5rem;
+  border: 1px dashed #FF761A;
+}
+
+.contact__signature__help {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #d1d1d1;
 }
 </style>

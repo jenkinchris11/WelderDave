@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.welderdave.co.uk/sitemap.xml
+
+# Point search engines at the canonical www domain
+Host: www.welderdave.co.uk

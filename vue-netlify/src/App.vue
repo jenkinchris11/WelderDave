@@ -159,6 +159,10 @@ watch(isAuthenticated, (isAuthed) => {
         <section id="contact" class="layout-grid__item layout-grid__item--contact">
           <ContactCard :editable="isAuthenticated" />
         </section>
+
+        <section id="faqs" class="visually-hidden" aria-hidden="true">
+          Frequently asked questions anchor for structured data.
+        </section>
       </main>
 
       <footer class="site-footer">
@@ -554,6 +558,18 @@ main.layout-grid {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .layout-grid__item--lottie {
